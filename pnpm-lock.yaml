@@ -50,6 +50,9 @@ importers:
       '@tarojs/taro':
         specifier: 3.6.8
         version: 3.6.8(@types/react@18.2.14)
+      immer:
+        specifier: ^10.0.2
+        version: 10.0.2
       react:
         specifier: ^18.0.0
         version: 18.0.0
@@ -111,6 +114,9 @@ importers:
       react-refresh:
         specifier: ^0.11.0
         version: 0.11.0
+      renew-it:
+        specifier: ^1.5.2
+        version: 1.5.2
       sass:
         specifier: ^1.63.6
         version: 1.63.6
@@ -9684,6 +9690,10 @@ packages:
     dev: true
     optional: true
 
+  /immer@10.0.2:
+    resolution: {integrity: sha512-Rx3CqeqQ19sxUtYV9CU911Vhy8/721wRFnJv3REVGWUmoAcIwzifTsdmJte/MV+0/XpM35LZdQMBGkRIoLPwQA==}
+    dev: false
+
   /immutable@4.3.0:
     resolution: {integrity: sha512-0AOCmOip+xgJwEVTQj1EfiDDOkPmuyllDuTuEX+DDXUgapLAsBIfkg3sxCYyCEA8mQqZrrxPUGjcOQ2JS3WLkg==}
 
@@ -13044,6 +13054,17 @@ packages:
       htmlparser2: 6.1.0
       lodash: 4.17.21
       strip-ansi: 6.0.1
+    dev: true
+
+  /renew-it@1.5.2:
+    resolution: {integrity: sha512-SAGAmYvHmhrsMhaxAaJ7/GQ+Hf0LVsOooAsuth9a/KjKybTJviTFsvxzVwRXyaWw/8Zfm6Xip8j9fZeUxhRa2g==}
+    hasBin: true
+    dependencies:
+      chalk: 2.4.2
+      commander: 2.20.3
+      inquirer: 8.2.5
+      minimist: 1.2.8
+      semver: 5.7.1
     dev: true
 
   /repeat-element@1.1.4:
