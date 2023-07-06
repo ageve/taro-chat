@@ -1,0 +1,21 @@
+.chat-bubble {
+  max-width: 400px;
+  height: auto;
+  height: fit-content;
+  background-color: white;
+  border-radius: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 15px 30px;
+  &-text {
+    min-width: 40px;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+  &-image {
+    width: 300px;
+    height: 300px;
+  }
+}
