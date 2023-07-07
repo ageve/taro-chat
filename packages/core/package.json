@@ -55,7 +55,7 @@
     "@typescript-eslint/eslint-plugin": "^5.20.0",
     "@typescript-eslint/parser": "^5.20.0",
     "babel-preset-taro": "3.6.8",
-    "eslint": "^8.12.0",
+    "eslint": "^7",
     "eslint-config-taro": "3.6.8",
     "eslint-plugin-import": "^2.12.0",
     "eslint-plugin-react": "^7.8.2",

@@ -1,7 +1,7 @@
-import { Text, View, Image } from "@tarojs/components";
+import { Image, Text, View } from "@tarojs/components";
 import React, { PropsWithChildren } from "react";
-import styles from "./index.module.scss";
 import { MessageProps } from "../Message/types";
+import styles from "./index.module.scss";
 
 interface Props {
   message: MessageProps;
