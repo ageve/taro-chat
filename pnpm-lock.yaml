@@ -26,27 +26,12 @@ importers:
 
   packages/core:
     dependencies:
-      '@babel/runtime':
-        specifier: ^7.7.7
-        version: 7.7.7
       '@tarojs/components':
         specifier: 3.6.8
         version: 3.6.8(@types/react@18.2.14)(react@18.0.0)
-      '@tarojs/helper':
-        specifier: 3.6.8
-        version: 3.6.8
-      '@tarojs/plugin-framework-react':
-        specifier: 3.6.8
-        version: 3.6.8(@pmmmwh/react-refresh-webpack-plugin@0.5.5)(@types/react@18.2.14)(react-refresh@0.11.0)(react@18.0.0)
       '@tarojs/react':
         specifier: 3.6.8
         version: 3.6.8(react@18.0.0)
-      '@tarojs/runtime':
-        specifier: 3.6.8
-        version: 3.6.8
-      '@tarojs/shared':
-        specifier: 3.6.8
-        version: 3.6.8
       '@tarojs/taro':
         specifier: 3.6.8
         version: 3.6.8(@types/react@18.2.14)
@@ -2942,12 +2927,6 @@ packages:
     engines: {node: '>=6.9.0'}
     dependencies:
       regenerator-runtime: 0.13.11
-
-  /@babel/runtime@7.7.7:
-    resolution: {integrity: sha512-uCnC2JEVAu8AKB5do1WRIsvrdJ0flYx/A/9f/6chdacnEZ7LmavjdsDXr5ksYBegxtuTPR5Va9/+13QF/kFkCA==}
-    dependencies:
-      regenerator-runtime: 0.13.11
-    dev: false
 
   /@babel/template@7.22.5:
     resolution: {integrity: sha512-X7yV7eiwAxdj9k94NEylvbVHLiVG1nvzCV2EAowhxLTwODV1jl9UzZ48leOC0sH7OnuHrIkllaBgneUykIcZaw==}

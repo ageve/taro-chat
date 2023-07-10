@@ -7,12 +7,15 @@ import {
 } from "@tarojs/components";
 import Taro from "@tarojs/taro";
 import React, { useCallback, useEffect, useState } from "react";
+import IconFileSvg from "../../assets/svg/file.svg";
 import IconPlusSvg from "../../assets/svg/icon-plus.svg";
+import IconImageSvg from "../../assets/svg/image.svg";
 import Bubble from "../Bubble";
 import { ConfigContextType, ConfigProvider } from "../ConfigProvider";
 import Message from "../Message";
 import { MessageProps } from "../Message/types";
 import TextInput from "../TextInput";
+import { Toolbar, ToolbarClick } from "../Toolbar";
 import styles from "./index.module.scss";
 import { ComposerProps } from "./types";
 
@@ -90,6 +93,47 @@ export default function Chat(props: ChatProps) {
       [onSend]
     );
 
+  const handleImageInput = useCallback(async () => {
+    try {
+      const result = await Taro.chooseMedia({
+        count: 1, // 选择图片数量， 最多 9 张
+        sizeType: ["original", "compressed"], //可选择原图或压缩后的图片
+        sourceType: ["album", "camera"], //可选择性开放访问相册、相机
+      });
+      const imageInfo = await Taro.getImageInfo({
+        src: result.tempFiles[0].tempFilePath,
+      });
+      console.log(
+        "%c [imageInfo]",
+        "background: #69c0ff; color: white; padding: 4px",
+        imageInfo
+      );
+
+      onSend("Image", result.tempFiles[0].tempFilePath);
+    } catch (error) {
+      // FIXME: toast 提示错误
+      Taro.showToast({ title: "暂时无法上传图片，请稍候重试" });
+    }
+  }, [onSend]);
+
+  const handleFileInput = useCallback(async () => {}, []);
+
+  const handleToolbarClick: ToolbarClick = useCallback(
+    (item) => {
+      switch (item.type) {
+        case "image":
+          handleImageInput();
+          break;
+        case "file":
+          handleFileInput();
+          break;
+        default:
+          break;
+      }
+    },
+    [handleFileInput, handleImageInput]
+  );
+
   return (
     <ConfigProvider locale={locale} locales={locales}>
       <View
@@ -146,7 +190,15 @@ export default function Chat(props: ChatProps) {
             className={`${styles["chat-toolbar"]} ${
               hasToolbar && styles["chat-toolbar-show"]
             }`}
-          ></View>
+          >
+            <Toolbar
+              items={[
+                { img: IconImageSvg, title: "图片", type: "image" },
+                { img: IconFileSvg, title: "文件", type: "file" },
+              ]}
+              onClick={handleToolbarClick}
+            />
+          </View>
         </View>
       </View>
     </ConfigProvider>

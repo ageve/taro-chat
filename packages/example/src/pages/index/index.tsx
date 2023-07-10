@@ -72,7 +72,19 @@ export default function Index() {
       <Chat
         messages={messages}
         onSend={async (type, content) => {
-          appendMsg({ type, content, id: "" });
+          console.log(
+            "%c bug",
+            "background: #69c0ff; color: white; padding: 4px",
+            type,
+            content
+          );
+
+          appendMsg({
+            type,
+            content,
+            id: Date.now().toString(36),
+            position: "left",
+          });
         }}
       />
     </View>
