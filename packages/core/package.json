@@ -1,6 +1,6 @@
 {
   "name": "taro-chat",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "taro-chat",
   "main": "dist/index.js",
   "types": "dist",
