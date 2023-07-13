@@ -29,7 +29,7 @@ export type ChatProps = ComposerProps &
 const scrollToBottomAnchorId = "scrollBottomAnchor";
 
 export default function Chat(props: ChatProps) {
-  const { messages, rightAction, onSend, locale = "zh-CN", locales } = props;
+  const { messages, rightAction, onSend, locale = "zh-CN", locales, customMessageContent } = props;
 
   const [hasToolbar, setHasToolbar] = useState(false);
 
@@ -116,7 +116,7 @@ export default function Chat(props: ChatProps) {
     }
   }, [onSend]);
 
-  const handleFileInput = useCallback(async () => {}, []);
+  const handleFileInput = useCallback(async () => { }, []);
 
   const handleToolbarClick: ToolbarClick = useCallback(
     (item) => {
@@ -133,6 +133,13 @@ export default function Chat(props: ChatProps) {
     },
     [handleFileInput, handleImageInput]
   );
+
+  const renderMessageContent = useCallback((message: MessageProps) => {
+    const result = customMessageContent?.(message);
+    if (result) {
+      return result
+    } return <Bubble message={message} />
+  }, [customMessageContent])
 
   return (
     <ConfigProvider locale={locale} locales={locales}>
@@ -151,16 +158,13 @@ export default function Chat(props: ChatProps) {
               return (
                 <View
                   key={item.id}
-                  className={`${styles["chat-message-wrap"]} ${
-                    item.position === "right" &&
+                  className={`${styles["chat-message-wrap"]} ${item.position === "right" &&
                     styles["chat-message-wrap-right"]
-                  }`}
+                    }`}
                 >
                   <Message
                     {...item}
-                    renderMessageContent={(message) => (
-                      <Bubble message={message} />
-                    )}
+                    renderMessageContent={renderMessageContent}
                   />
                 </View>
               );
@@ -179,17 +183,15 @@ export default function Chat(props: ChatProps) {
               <Image
                 src={IconPlusSvg}
                 onClick={handleClickRightAction}
-                className={`${styles["chat-right-action"]} ${
-                  hasToolbar && styles["chat-right-action-close"]
-                }`}
+                className={`${styles["chat-right-action"]} ${hasToolbar && styles["chat-right-action-close"]
+                  }`}
               ></Image>
             )}
           </View>
           {/* bottom toolbar */}
           <View
-            className={`${styles["chat-toolbar"]} ${
-              hasToolbar && styles["chat-toolbar-show"]
-            }`}
+            className={`${styles["chat-toolbar"]} ${hasToolbar && styles["chat-toolbar-show"]
+              }`}
           >
             <Toolbar
               items={[
