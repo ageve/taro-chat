@@ -4,7 +4,8 @@ export default Chat;
 
 export type {
   MessagePosition,
-  MessageProps,
+  MessageType,
+  MessageOptionProps as MessageProps,
   MessageStatus,
   User,
 } from "./components/Message/types";

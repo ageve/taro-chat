@@ -1,4 +1,4 @@
-export type MessageType = "Text" | "Image" | "File";
+export type MessageType = "Text" | "Image" | "File" | "Link";
 export type MessagePosition = "left" | "right" | "center" | "pop";
 
 export interface User {
@@ -27,7 +27,7 @@ export type ComposerProps = {
 export type MessageStatus = "pending" | "sent" | "fail";
 export type MessageId = string;
 export interface MessageProps {
-  id: MessageId; // 消息唯一 ID，nanoid
+  id: MessageId; // 消息唯一 ID，使用 createId
   // 消息内容
   content: string;
   // 发送消息者
@@ -50,4 +50,12 @@ export interface MessageProps {
    * 消息内容渲染函数
    */
   renderMessageContent?: (message: MessageProps) => React.ReactNode;
+  /**
+   * 补充额外的信息，用于丰富消息格式
+   */
+  extra?: unknown
 }
+
+export type MessageOptionProps = Omit<MessageProps, "id"> & {
+  id?: MessageId;
+};

@@ -1,4 +1,5 @@
 import React from "react";
+import { Text } from "@tarojs/components";
 import formatDate, { IDate } from "./parser";
 import { useLocale } from "../ConfigProvider";
 
@@ -10,8 +11,8 @@ export const Time = ({ date }: TimeProps) => {
   const { trans } = useLocale("Time");
 
   return (
-    <time className="Time" dateTime={new Date(date).toJSON()}>
+    <Text className="Time">
       {formatDate(date, trans())}
-    </time>
+    </Text>
   );
 };
