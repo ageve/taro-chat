@@ -109,15 +109,17 @@ export default function Chat(props: ChatProps) {
         imageInfo
       );
 
-      onSend("Image", result.tempFiles[0].tempFilePath);
+      onSend("Image", result.tempFiles[0].tempFilePath, imageInfo);
     } catch (error) {
       // FIXME: toast 提示错误
       Taro.showToast({ title: "暂时无法上传图片，请稍候重试" });
     }
   }, [onSend]);
 
+  // TODO: 选择文件
   const handleFileInput = useCallback(async () => { }, []);
 
+  // TODO: 抽象到 useAction 里面
   const handleToolbarClick: ToolbarClick = useCallback(
     (item) => {
       switch (item.type) {

@@ -1,4 +1,4 @@
-import { MessageType } from "../Message/types";
+import { MessageProps, MessageType } from "../Message/types";
 
 export interface User {
   avatar?: string;
@@ -13,8 +13,10 @@ export interface InputProps {
 export interface Message {
   type: MessageType,
   content: string,
-  /** 发送文件，图片 */
-  file?: File
+  /**
+   * 补充额外的信息，用于丰富消息格式
+   */
+  extra?: unknown
 }
 
 /* 聊天组件 */
@@ -23,10 +25,12 @@ export type ComposerProps = {
   onSend: (
     type: MessageType,
     content: string,
-    /** 发送文件，图片 */
-    file?: File
+    /**
+     * 补充额外的信息，用于丰富消息格式
+     */
+    extra?: unknown
   ) => Promise<void>;
   toolbar?: any;
   rightAction?: JSX.Element;
-  customMessageContent?: (data: Message) => JSX.Element
+  customMessageContent?: (data: MessageProps) => JSX.Element
 };
