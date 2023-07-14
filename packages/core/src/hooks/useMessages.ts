@@ -1,9 +1,8 @@
 import { useCallback, useMemo, useState } from "react";
-import { MessageId, MessageOptionProps, MessageProps } from "../components/Message/types";
+import { MessageId, MessageOptionProps } from "../components/Message/types";
 import { createId } from "../util";
 
-type Messages = MessageProps[];
-
+type Messages = MessageOptionProps[];
 
 const TIME_GAP = 5 * 60 * 1000;
 let lastTs = 0;
@@ -38,9 +37,7 @@ export default function useMessages(initialState: MessageOptionProps[] = []) {
   }, []);
 
   const updateMsg = useCallback((id: MessageId, msg: MessageOptionProps) => {
-    setMessages((prev) =>
-      prev.map((t) => (t.id === id ? makeMsg(msg, id) : t))
-    );
+    setMessages((prev) => prev.map((t) => (t.id === id ? makeMsg(msg) : t)));
   }, []);
 
   const appendMsg = useCallback((msg: MessageOptionProps) => {
