@@ -4,10 +4,15 @@ export default Chat;
 
 export type {
   MessagePosition,
-  MessageType,
   MessageOptionProps as MessageProps,
   MessageStatus,
+  MessageType,
   User,
 } from "./components/Message/types";
+
+export type {
+  MessageFileExtra,
+  MessageImageExtra,
+} from "./components/Bubble/type";
 
 export { default as useMessages } from "./hooks/useMessages";
