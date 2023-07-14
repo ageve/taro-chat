@@ -3,8 +3,8 @@ import Chat from "./components/Chat";
 export default Chat;
 
 export type {
+  MessageOptionProps,
   MessagePosition,
-  MessageOptionProps as MessageProps,
   MessageStatus,
   MessageType,
   User,

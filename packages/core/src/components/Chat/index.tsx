@@ -10,6 +10,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import IconFileSvg from "../../assets/svg/file.svg";
 import IconPlusSvg from "../../assets/svg/icon-plus.svg";
 import IconImageSvg from "../../assets/svg/image.svg";
+import { Messages } from "../../types";
 import Bubble from "../Bubble";
 import { ConfigContextType, ConfigProvider } from "../ConfigProvider";
 import Message from "../Message";
@@ -23,13 +24,20 @@ const pixelRatio = 750 / Taro.getSystemInfoSync().windowWidth;
 
 export type ChatProps = ComposerProps &
   ConfigContextType & {
-    messages: MessageProps[];
+    messages: Messages;
   };
 
 const scrollToBottomAnchorId = "scrollBottomAnchor";
 
 export default function Chat(props: ChatProps) {
-  const { messages, rightAction, onSend, locale = "zh-CN", locales, customMessageContent } = props;
+  const {
+    messages,
+    rightAction,
+    onSend,
+    locale = "zh-CN",
+    locales,
+    customMessageContent,
+  } = props;
 
   const [hasToolbar, setHasToolbar] = useState(false);
 
@@ -117,7 +125,7 @@ export default function Chat(props: ChatProps) {
   }, [onSend]);
 
   // TODO: 选择文件
-  const handleFileInput = useCallback(async () => { }, []);
+  const handleFileInput = useCallback(async () => {}, []);
 
   // TODO: 抽象到 useAction 里面
   const handleToolbarClick: ToolbarClick = useCallback(
@@ -136,12 +144,16 @@ export default function Chat(props: ChatProps) {
     [handleFileInput, handleImageInput]
   );
 
-  const renderMessageContent = useCallback((message: MessageProps) => {
-    const result = customMessageContent?.(message);
-    if (result) {
-      return result
-    } return <Bubble message={message} />
-  }, [customMessageContent])
+  const renderMessageContent = useCallback(
+    (message: MessageProps) => {
+      const result = customMessageContent?.(message);
+      if (result) {
+        return result;
+      }
+      return <Bubble message={message} />;
+    },
+    [customMessageContent]
+  );
 
   return (
     <ConfigProvider locale={locale} locales={locales}>
@@ -160,9 +172,10 @@ export default function Chat(props: ChatProps) {
               return (
                 <View
                   key={item.id}
-                  className={`${styles["chat-message-wrap"]} ${item.position === "right" &&
+                  className={`${styles["chat-message-wrap"]} ${
+                    item.position === "right" &&
                     styles["chat-message-wrap-right"]
-                    }`}
+                  }`}
                 >
                   <Message
                     {...item}
@@ -185,15 +198,17 @@ export default function Chat(props: ChatProps) {
               <Image
                 src={IconPlusSvg}
                 onClick={handleClickRightAction}
-                className={`${styles["chat-right-action"]} ${hasToolbar && styles["chat-right-action-close"]
-                  }`}
+                className={`${styles["chat-right-action"]} ${
+                  hasToolbar && styles["chat-right-action-close"]
+                }`}
               ></Image>
             )}
           </View>
           {/* bottom toolbar */}
           <View
-            className={`${styles["chat-toolbar"]} ${hasToolbar && styles["chat-toolbar-show"]
-              }`}
+            className={`${styles["chat-toolbar"]} ${
+              hasToolbar && styles["chat-toolbar-show"]
+            }`}
           >
             <Toolbar
               items={[

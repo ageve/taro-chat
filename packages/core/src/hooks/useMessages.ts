@@ -1,10 +1,7 @@
 import { useCallback, useMemo, useState } from "react";
-import { MessageProps } from "..";
 import { MessageId, MessageOptionProps } from "../components/Message/types";
+import { Messages, MessagesOption } from "../types";
 import { createId } from "../util";
-
-type MessagesOption = MessageOptionProps[];
-type Messages = MessageProps[];
 
 const TIME_GAP = 5 * 60 * 1000;
 let lastTs = 0;
@@ -53,8 +50,13 @@ export default function useMessages(initialState: MessageOptionProps[] = []) {
   }, []);
 
   // 刷新聊天窗口
-  const resetList = useCallback((list: MessagesOption = []) => {
+  const resetList = useCallback((msgs: MessagesOption = []) => {
+    const list = msgs.map((it) => makeMsg(it));
     setMessages(list);
+  }, []);
+
+  const clearList = useCallback(() => {
+    setMessages([]);
   }, []);
 
   return {
@@ -64,5 +66,6 @@ export default function useMessages(initialState: MessageOptionProps[] = []) {
     updateMsg,
     deleteMsg,
     resetList,
+    clearList,
   };
 }

@@ -1,3 +1,5 @@
+import { MessageOptionProps, MessageProps } from "../components/Message/types";
+
 export type FileType =
   /** doc 格式 */
   | "doc"
@@ -32,3 +34,7 @@ export type DownloadFileSuccess = {
    */
   dataLength?: number;
 };
+
+export type Messages = MessageProps[];
+
+export type MessagesOption = MessageOptionProps[];
