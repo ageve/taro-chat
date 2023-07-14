@@ -15,4 +15,6 @@ export type {
   MessageImageExtra,
 } from "./components/Bubble/type";
 
+export type { FileType } from "./types";
+
 export { default as useMessages } from "./hooks/useMessages";

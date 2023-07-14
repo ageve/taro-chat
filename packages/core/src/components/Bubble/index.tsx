@@ -2,6 +2,7 @@ import { Image, Text, View } from "@tarojs/components";
 import Taro from "@tarojs/taro";
 import React, { PropsWithChildren, useCallback } from "react";
 import FileFillSvg from "../../assets/svg/file-fill.svg";
+import { downloadFileForOpen } from "../../util/downloadFileUtil";
 import { MessageProps } from "../Message/types";
 import styles from "./index.module.scss";
 import { MessageFileExtra } from "./type";
@@ -27,9 +28,14 @@ export default function Bubble({
   /**
    * @description 点击文件预览
    */
-  const handleFileClick = useCallback(() => {
+  const handleFileClick = useCallback(async () => {
     // TODO: 具体实现
-  }, []);
+    downloadFileForOpen({
+      url: message.content,
+      fileName: (message.extra as MessageFileExtra).name,
+      fileType: (message.extra as MessageFileExtra).fileType,
+    });
+  }, [message.content, message.extra]);
 
   return (
     <View className={styles["chat-bubble"]}>
