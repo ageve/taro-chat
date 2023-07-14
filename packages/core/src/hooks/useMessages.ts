@@ -1,8 +1,10 @@
 import { useCallback, useMemo, useState } from "react";
+import { MessageProps } from "..";
 import { MessageId, MessageOptionProps } from "../components/Message/types";
 import { createId } from "../util";
 
-type Messages = MessageOptionProps[];
+type MessagesOption = MessageOptionProps[];
+type Messages = MessageProps[];
 
 const TIME_GAP = 5 * 60 * 1000;
 let lastTs = 0;
@@ -32,8 +34,9 @@ export default function useMessages(initialState: MessageOptionProps[] = []) {
   const [messages, setMessages] = useState(initialMsgs);
 
   // 在头部添加消息，配合上拉刷新实现显示历史消息
-  const prependMsgs = useCallback((msgs: Messages) => {
-    setMessages((prev: Messages) => [...msgs, ...prev]);
+  const prependMsgs = useCallback((msgs: MessagesOption) => {
+    const list = msgs.map((it) => makeMsg(it));
+    setMessages((prev: Messages) => [...list, ...prev]);
   }, []);
 
   const updateMsg = useCallback((id: MessageId, msg: MessageOptionProps) => {
@@ -50,7 +53,7 @@ export default function useMessages(initialState: MessageOptionProps[] = []) {
   }, []);
 
   // 刷新聊天窗口
-  const resetList = useCallback((list = []) => {
+  const resetList = useCallback((list: MessagesOption = []) => {
     setMessages(list);
   }, []);
 
