@@ -1,3 +1,4 @@
+import { CommonEventFunction } from "@tarojs/components";
 import { MessageProps, MessageType } from "../Message/types";
 
 export interface User {
@@ -11,12 +12,12 @@ export interface InputProps {
 }
 
 export interface Message {
-  type: MessageType,
-  content: string,
+  type: MessageType;
+  content: string;
   /**
    * 补充额外的信息，用于丰富消息格式
    */
-  extra?: unknown
+  extra?: unknown;
 }
 
 /* 聊天组件 */
@@ -32,5 +33,6 @@ export type ComposerProps = {
   ) => Promise<void>;
   toolbar?: any;
   rightAction?: JSX.Element;
-  customMessageContent?: (data: MessageProps) => JSX.Element
+  customMessageContent?: (data: MessageProps) => JSX.Element;
+  onRefresherRefresh?: CommonEventFunction;
 };

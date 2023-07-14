@@ -37,9 +37,20 @@ export default function Chat(props: ChatProps) {
     locale = "zh-CN",
     locales,
     customMessageContent,
+    onRefresherRefresh,
   } = props;
 
   const [hasToolbar, setHasToolbar] = useState(false);
+  const [refresherTriggered, setRefresherTriggered] = useState(false);
+
+  const handleRefresherRefresh: CommonEventFunction = useCallback(
+    async (event) => {
+      setRefresherTriggered(true);
+      await onRefresherRefresh?.(event);
+      setRefresherTriggered(false);
+    },
+    [onRefresherRefresh]
+  );
 
   // TODO: 点击 toolbar 以外的区域都要能够关闭
   const handleHideToolbar = useCallback(() => {
@@ -155,6 +166,12 @@ export default function Chat(props: ChatProps) {
     [customMessageContent]
   );
 
+  console.log(
+    "%c debug",
+    "background: #69c0ff; color: white; padding: 4px",
+    refresherTriggered
+  );
+
   return (
     <ConfigProvider locale={locale} locales={locales}>
       <View
@@ -166,6 +183,10 @@ export default function Chat(props: ChatProps) {
           scrollY
           scrollIntoView={scrollToView}
           className={styles["chat-message"]}
+          refresherEnabled
+          refresherBackground="#eeeeee"
+          refresherTriggered={refresherTriggered}
+          onRefresherRefresh={handleRefresherRefresh}
         >
           <View className={styles["chat-message-container"]}>
             {messages.map((item) => {
