@@ -48,7 +48,9 @@ jobs:
       - name: build & publish
         run: |
           cd packages/core
-          echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_AUTH_TOKEN }}" > ~/.npmrc
+          echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_AUTH_TOKEN }} 
+          registry=https://registry.npmjs.org/
+          always-auth=true" > ~/.npmrc
           npm run build
           npm publish --access public
 
