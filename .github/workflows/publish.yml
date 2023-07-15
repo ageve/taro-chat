@@ -18,10 +18,11 @@ jobs:
     steps:
       - uses: actions/checkout@master
 
-      - uses: actions/setup-node@v2
+      - uses: actions/setup-node@v3
         with:
           node-version: "16.x"
           registry-url: "https://registry.npmjs.org"
+          cache: "yarn"
 
       - name: Run install in sub-folder
         uses: borales/actions-yarn@v4
@@ -34,7 +35,7 @@ jobs:
           cd packages/core
           echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_AUTH_TOKEN }}" > ~/.npmrc
           npm run build
-          yarn publish --access public
+          npm publish --access public
 
       # 企业微信消息
       - name: WeChat Work notification by text
