@@ -1,9 +1,13 @@
 {
-	"dependencies": {
-		"@tarojs/cli": "^3.6.8",
-		"@types/react": "^18.2.14",
-		"@types/react-dom": "^18.2.6",
-		"taro": "^0.0.7",
-		"typescript": "^5.1.6"
-	}
+  "scripts": {
+    "release": "cd packages/core && npx renew-it"
+  },
+  "dependencies": {
+    "@tarojs/cli": "^3.6.8",
+    "@types/react": "^18.2.14",
+    "@types/react-dom": "^18.2.6",
+    "renew-it": "^1.5.2",
+    "taro": "^0.0.7",
+    "typescript": "^5.1.6"
+  }
 }
