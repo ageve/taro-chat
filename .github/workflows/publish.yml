@@ -29,7 +29,9 @@ jobs:
         with:
           cmd: install
 
-      - run: yarn build
+      - run: |
+          echo "Current working directory: $(pwd)"
+          yarn build
       - run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_AUTH_TOKEN }}" > ~/.npmrc
       - run: yarn publish --access public
 
