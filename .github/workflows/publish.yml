@@ -24,11 +24,11 @@ jobs:
           registry-url: "https://registry.npmjs.org"
 
       - name: build & publish
-        working-directory: packages/core
+
         run: |
           echo "current working directory :${pwd}"
           echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_AUTH_TOKEN }}" > ~/.npmrc
-          npm ci
+          npm install
           npm run build
           npm publish --access public
 
