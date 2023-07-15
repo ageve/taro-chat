@@ -22,18 +22,15 @@ jobs:
         with:
           node-version: "16.x"
           registry-url: "https://registry.npmjs.org"
-      - run: |
-          cd ./packages/core
-          echo "Current working directory: $(pwd)"
-      - uses: borales/actions-yarn@v4
-        with:
-          cmd: install
 
-      - run: |
-          echo "Current working directory: $(pwd)"
-          yarn build
-      - run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_AUTH_TOKEN }}" > ~/.npmrc
-      - run: yarn publish --access public
+      - name: build & publish
+        working-directory: packages/core
+        run: |
+          echo "current working directory :${pwd}"
+          echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_AUTH_TOKEN }}" > ~/.npmrc
+          npm ci
+          npm run build
+          npm publish --access public
 
       # 企业微信消息
       - name: WeChat Work notification by text
