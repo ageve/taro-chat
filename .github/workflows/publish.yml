@@ -22,13 +22,15 @@ jobs:
         with:
           node-version: "16.x"
           registry-url: "https://registry.npmjs.org"
-          cache: "yarn"
+          cache: "pnpm"
 
-      - name: Run install in sub-folder
-        uses: borales/actions-yarn@v4
+      - uses: pnpm/action-setup@v2
+        name: Install pnpm
+        id: pnpm-install
         with:
-          cmd: install
-          dir: "packages/core" # will run `yarn test` in `frontend` sub folder
+          version: 8
+
+      - run: pnpm install -w
 
       - name: build & publish
         run: |
