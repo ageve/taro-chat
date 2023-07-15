@@ -55,6 +55,20 @@ jobs:
           npm run build
           npm publish --access public
 
+      - name: 读取当前版本号
+        id: name
+        uses: ashley-taylor/read-json-property-action@v1.0
+        with:
+          path: ./packages/core/package.json
+          property: name
+
+      - name: 读取当前版本号
+        id: version
+        uses: ashley-taylor/read-json-property-action@v1.0
+        with:
+          path: ./packages/core/package.json
+          property: version
+
       # 企业微信消息
       - name: WeChat Work notification by text
         uses: chf007/action-wechat-work@master
@@ -62,5 +76,4 @@ jobs:
           WECHAT_WORK_BOT_WEBHOOK: ${{secrets.WECHAT_WORK_BOT_WEBHOOK}}
         with:
           msgtype: text
-          content: "🥹[taro-aid] 发布成功！"
-          mentioned_list: '["wangqing","@all"]'
+          content: "🎉 ${{steps.name.outputs.value}} : V${{steps.version.outputs.value}} 发布成功！"
