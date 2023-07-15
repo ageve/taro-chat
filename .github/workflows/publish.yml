@@ -55,14 +55,14 @@ jobs:
           npm run build
           npm publish --access public
 
-      - name: 读取当前版本号
+      - name: read package name
         id: name
         uses: ashley-taylor/read-json-property-action@v1.0
         with:
           path: ./packages/core/package.json
           property: name
 
-      - name: 读取当前版本号
+      - name: read package version
         id: version
         uses: ashley-taylor/read-json-property-action@v1.0
         with:
