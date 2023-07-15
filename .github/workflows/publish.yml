@@ -6,10 +6,6 @@ name: NPM Package
 on:
   create:
 
-defaults:
-  run:
-    working-directory: ../packages/core
-
 jobs:
   version:
     runs-on: ubuntu-latest
@@ -21,13 +17,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
+
       - uses: actions/setup-node@v2
         with:
           node-version: "16.x"
           registry-url: "https://registry.npmjs.org"
+      - run: cd ./packages/core
       - uses: borales/actions-yarn@v4
         with:
           cmd: install
+
       - run: yarn build
       - run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_AUTH_TOKEN }}" > ~/.npmrc
       - run: yarn publish --access public
