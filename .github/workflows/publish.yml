@@ -23,15 +23,18 @@ jobs:
           node-version: "16.x"
           registry-url: "https://registry.npmjs.org"
 
-      - name: build & publish
+      - name: Run install in sub-folder
+        uses: borales/actions-yarn@v4
+        with:
+          cmd: install
+          dir: "packages/core" # will run `yarn test` in `frontend` sub folder
 
+      - name: build & publish
         run: |
           cd packages/core
-          echo "current working directory :${pwd}"
           echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_AUTH_TOKEN }}" > ~/.npmrc
-          npm install
           npm run build
-          npm publish --access public
+          yarn publish --access public
 
       # 企业微信消息
       - name: WeChat Work notification by text
