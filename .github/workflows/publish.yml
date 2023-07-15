@@ -26,6 +26,7 @@ jobs:
       - name: build & publish
 
         run: |
+          cd packages/core
           echo "current working directory :${pwd}"
           echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_AUTH_TOKEN }}" > ~/.npmrc
           npm install
