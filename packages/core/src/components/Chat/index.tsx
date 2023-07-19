@@ -33,6 +33,10 @@ export default function Chat(props: ChatProps) {
   const {
     messages,
     rightAction,
+    showRightAction = true,
+    floatActionProps = { position: { right: "30px", bottom: "60px" } },
+    floatAction,
+    footer,
     onSend,
     locale = "zh-CN",
     locales,
@@ -178,36 +182,44 @@ export default function Chat(props: ChatProps) {
         className={styles["chat-widget"]}
         style={{ paddingBottom: `${keyboardHeight}rpx` }}
       >
-        <ScrollView
-          scrollWithAnimation
-          scrollY
-          scrollIntoView={scrollToView}
-          className={styles["chat-message"]}
-          refresherEnabled
-          refresherBackground="#eeeeee"
-          refresherTriggered={refresherTriggered}
-          onRefresherRefresh={handleRefresherRefresh}
-        >
-          <View className={styles["chat-message-container"]}>
-            {messages.map((item) => {
-              return (
-                <View
-                  key={item.id}
-                  className={`${styles["chat-message-wrap"]} ${
-                    item.position === "right" &&
-                    styles["chat-message-wrap-right"]
-                  }`}
-                >
-                  <Message
-                    {...item}
-                    renderMessageContent={renderMessageContent}
-                  />
-                </View>
-              );
-            })}
-            <View id={scrollToBottomAnchorId}></View>
+        <View className={styles["chat-message-box"]}>
+          <ScrollView
+            scrollWithAnimation
+            scrollY
+            scrollIntoView={scrollToView}
+            className={styles["chat-message"]}
+            refresherEnabled
+            refresherBackground="#eeeeee"
+            refresherTriggered={refresherTriggered}
+            onRefresherRefresh={handleRefresherRefresh}
+          >
+            <View className={styles["chat-message-container"]}>
+              {messages.map((item) => {
+                return (
+                  <View
+                    key={item.id}
+                    className={`${styles["chat-message-wrap"]} ${
+                      item.position === "right" &&
+                      styles["chat-message-wrap-right"]
+                    }`}
+                  >
+                    <Message
+                      {...item}
+                      renderMessageContent={renderMessageContent}
+                    />
+                  </View>
+                );
+              })}
+              <View id={scrollToBottomAnchorId}></View>
+            </View>
+          </ScrollView>
+          <View
+            className={styles["chat-message-float"]}
+            style={{ ...floatActionProps.position }}
+          >
+            {floatAction}
           </View>
-        </ScrollView>
+        </View>
         <View className={styles["chat-footer"]}>
           <View className={styles["chat-input-wrap"]}>
             <TextInput
@@ -215,15 +227,16 @@ export default function Chat(props: ChatProps) {
               onFocus={handleFocus}
               onBlur={handleBlur}
             />
-            {rightAction || (
-              <Image
-                src={IconPlusSvg}
-                onClick={handleClickRightAction}
-                className={`${styles["chat-right-action"]} ${
-                  hasToolbar && styles["chat-right-action-close"]
-                }`}
-              ></Image>
-            )}
+            {showRightAction &&
+              (rightAction || (
+                <Image
+                  src={IconPlusSvg}
+                  onClick={handleClickRightAction}
+                  className={`${styles["chat-right-action"]} ${
+                    hasToolbar && styles["chat-right-action-close"]
+                  }`}
+                ></Image>
+              ))}
           </View>
           {/* bottom toolbar */}
           <View
@@ -239,6 +252,7 @@ export default function Chat(props: ChatProps) {
               onClick={handleToolbarClick}
             />
           </View>
+          {footer}
         </View>
       </View>
     </ConfigProvider>

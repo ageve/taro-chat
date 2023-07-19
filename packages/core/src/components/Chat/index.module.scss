@@ -12,9 +12,15 @@ view {
     overflow: hidden;
     padding-top: 26px;
   }
+  &-message-box {
+    position: relative;
+    flex-grow: 1;
+    width: 100%;
+    overflow: hidden;
+  }
   &-message {
     width: 100%;
-    flex-grow: 1;
+    height: 100%;
     padding: 0 20px 0;
     overflow-y: scroll;
     overflow-x: hidden;
@@ -31,6 +37,11 @@ view {
         align-items: flex-end;
         flex-direction: column-reverse;
       }
+    }
+    &-float {
+      position: absolute;
+      right: 20px;
+      bottom: 30px;
     }
   }
   &-footer {

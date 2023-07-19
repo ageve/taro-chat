@@ -20,6 +20,24 @@ export interface Message {
   extra?: unknown;
 }
 
+type FloatActionPropsPosition =
+  | {
+      top: string;
+      left: string;
+    }
+  | {
+      top: string;
+      right: string;
+    }
+  | {
+      left: string;
+      bottom: string;
+    }
+  | {
+      right: string;
+      bottom: string;
+    };
+
 /* 聊天组件 */
 export type ComposerProps = {
   inputOptions?: InputProps;
@@ -32,7 +50,11 @@ export type ComposerProps = {
     extra?: unknown
   ) => Promise<void>;
   toolbar?: any;
+  showRightAction?: boolean;
   rightAction?: JSX.Element;
+  floatAction?: JSX.Element;
+  floatActionProps?: { position: FloatActionPropsPosition };
+  footer?: JSX.Element;
   customMessageContent?: (data: MessageProps) => JSX.Element;
   onRefresherRefresh?: CommonEventFunction;
 };
