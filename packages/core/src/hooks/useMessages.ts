@@ -30,26 +30,49 @@ export default function useMessages(initialState: MessageOptionProps[] = []) {
   );
   const [messages, setMessages] = useState(initialMsgs);
 
-  // 在头部添加消息，配合上拉刷新实现显示历史消息
+  /**
+   * @description 在头部添加消息，配合上拉刷新实现显示历史消息
+   *
+   * */
   const prependMsgs = useCallback((msgs: MessagesOption) => {
     const list = msgs.map((it) => makeMsg(it));
     setMessages((prev: Messages) => [...list, ...prev]);
   }, []);
 
+  /**
+   * @description 在尾部添加多条消息，用于补充多条消息
+   *
+   * */
+  const appendMsgs = useCallback((msgs: MessagesOption) => {
+    const list = msgs.map((it) => makeMsg(it));
+    setMessages((prev: Messages) => [...prev, ...list]);
+  }, []);
+
+  /**
+   * @description 动态更新某一条消息
+   */
   const updateMsg = useCallback((id: MessageId, msg: MessageOptionProps) => {
     setMessages((prev) => prev.map((t) => (t.id === id ? makeMsg(msg) : t)));
   }, []);
 
+  /**
+   * @description 添加一条消息
+   */
   const appendMsg = useCallback((msg: MessageOptionProps) => {
     const newMsg = makeMsg(msg);
     setMessages((prev) => [...prev, newMsg]);
   }, []);
 
+  /**
+   * @description 删除一条消息
+   */
   const deleteMsg = useCallback((id: MessageId) => {
     setMessages((prev) => prev.filter((t) => t.id !== id));
   }, []);
 
-  // 刷新聊天窗口
+  /**
+   * @description 使用新的消息列表刷新聊天窗口
+   */
   const resetList = useCallback((msgs: MessagesOption = []) => {
     const list = msgs.map((it) => makeMsg(it));
     setMessages(list);
@@ -62,6 +85,7 @@ export default function useMessages(initialState: MessageOptionProps[] = []) {
   return {
     messages,
     prependMsgs,
+    appendMsgs,
     appendMsg,
     updateMsg,
     deleteMsg,

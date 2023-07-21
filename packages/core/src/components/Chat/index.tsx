@@ -87,11 +87,6 @@ export default function Chat(props: ChatProps) {
   const handleFocus: CommonEventFunction<InputProps.inputForceEventDetail> =
     useCallback(
       (event) => {
-        console.log(
-          "键盘高度",
-          event.detail.height,
-          event.detail.height * pixelRatio
-        );
         handleHideToolbar();
         // input 上移：计算出对应的 rpx
         setKeyboardHeight(event.detail.height * pixelRatio);
