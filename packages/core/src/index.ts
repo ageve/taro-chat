@@ -1,4 +1,6 @@
-import Chat from "./components/Chat";
+import Chat, { ChatRef } from "./components/Chat";
+
+export type { ChatRef };
 
 export default Chat;
 

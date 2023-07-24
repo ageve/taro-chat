@@ -6,7 +6,12 @@ import {
   View,
 } from "@tarojs/components";
 import Taro from "@tarojs/taro";
-import React, { useCallback, useEffect, useState } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useImperativeHandle,
+  useState,
+} from "react";
 import IconFileSvg from "../../assets/svg/file.svg";
 import IconPlusSvg from "../../assets/svg/icon-plus.svg";
 import IconImageSvg from "../../assets/svg/image.svg";
@@ -27,9 +32,13 @@ export type ChatProps = ComposerProps &
     messages: Messages;
   };
 
+export interface ChatRef {
+  scrollToBottom: () => void;
+}
+
 const scrollToBottomAnchorId = "scrollBottomAnchor";
 
-export default function Chat(props: ChatProps) {
+const Chat = React.forwardRef<ChatRef, ChatProps>((props, ref) => {
   const {
     messages,
     rightAction,
@@ -75,6 +84,10 @@ export default function Chat(props: ChatProps) {
   const [scrollToView, setScrollToView] = useState("");
 
   const [keyboardHeight, setKeyboardHeight] = useState<number>(0);
+
+  useImperativeHandle(ref, () => ({
+    scrollToBottom: messageIntoBottom,
+  }));
 
   useEffect(() => {
     if (scrollToView) {
@@ -252,4 +265,6 @@ export default function Chat(props: ChatProps) {
       </View>
     </ConfigProvider>
   );
-}
+});
+
+export default Chat;
