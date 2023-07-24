@@ -38,7 +38,7 @@ export interface MessageProps {
   createdAt?: number;
   // 消息显示位置
   position?: MessagePosition;
-  // 消息类型：支持文字，图片，文件
+  // 消息类型：支持文字，图片，文件，或其他自定义类型（传 undefined）
   type?: MessageType;
   // 是否最新消息
   isNew?: boolean;
@@ -53,7 +53,7 @@ export interface MessageProps {
   /**
    * 补充额外的信息，用于丰富消息格式
    */
-  extra?: unknown
+  extra?: unknown;
 }
 
 export type MessageOptionProps = Omit<MessageProps, "id"> & {

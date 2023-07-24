@@ -1,6 +1,12 @@
 import { Image, Text, View } from "@tarojs/components";
 import Taro from "@tarojs/taro";
-import React, { PropsWithChildren, useCallback } from "react";
+import React, {
+  Children,
+  PropsWithChildren,
+  ReactNode,
+  isValidElement,
+  useCallback,
+} from "react";
 import FileFillSvg from "../../assets/svg/file-fill.svg";
 import { downloadFileForOpen } from "../../util/downloadFileUtil";
 import { MessageProps } from "../Message/types";
@@ -37,6 +43,16 @@ export default function Bubble({
     });
   }, [message.content, message.extra]);
 
+  const bindProps = useCallback(
+    (child: ReactNode) => {
+      if (!isValidElement(child)) {
+        return null;
+      }
+      return React.cloneElement(child, message);
+    },
+    [message]
+  );
+
   return (
     <View className={styles["chat-bubble"]}>
       {message.type === "Text" && (
@@ -67,7 +83,7 @@ export default function Bubble({
           </View>
         </View>
       )}
-      {children}
+      {Children.map(children, bindProps)}
     </View>
   );
 }
