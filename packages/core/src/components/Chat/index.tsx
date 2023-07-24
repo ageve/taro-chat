@@ -178,12 +178,6 @@ const Chat = React.forwardRef<ChatRef, ChatProps>((props, ref) => {
     [customMessageContent]
   );
 
-  console.log(
-    "%c debug",
-    "background: #69c0ff; color: white; padding: 4px",
-    refresherTriggered
-  );
-
   return (
     <ConfigProvider locale={locale} locales={locales}>
       <View

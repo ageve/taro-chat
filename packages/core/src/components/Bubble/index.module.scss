@@ -1,3 +1,13 @@
+.chat-bubble-box {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 16px;
+  &-right {
+    flex-direction: row-reverse;
+  }
+}
+
 .chat-bubble {
   max-width: 78vw;
   height: auto;

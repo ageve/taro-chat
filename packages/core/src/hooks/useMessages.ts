@@ -1,12 +1,16 @@
 import { useCallback, useMemo, useState } from "react";
-import { MessageId, MessageOptionProps } from "../components/Message/types";
+import {
+  MessageId,
+  MessageOptionProps,
+  MessageProps,
+} from "../components/Message/types";
 import { Messages, MessagesOption } from "../types";
 import { createId } from "../util";
 
 const TIME_GAP = 5 * 60 * 1000;
 let lastTs = 0;
 
-const makeMsg = (msg: MessageOptionProps) => {
+const makeMsg = (msg: MessageOptionProps): MessageProps => {
   const ts = msg.createdAt || Date.now();
   const hasTime = msg.hasTime || ts - lastTs > TIME_GAP;
 
@@ -18,6 +22,7 @@ const makeMsg = (msg: MessageOptionProps) => {
     ...msg,
     id: msg.id || createId(), // 自动补充 id
     createdAt: ts,
+    // status: "pending",
     position: msg.position || "left", // 默认显示在左侧
     hasTime,
   };
@@ -58,9 +63,10 @@ export default function useMessages(initialState: MessageOptionProps[] = []) {
   /**
    * @description 添加一条消息
    */
-  const appendMsg = useCallback((msg: MessageOptionProps) => {
+  const appendMsg = useCallback((msg: MessageOptionProps): MessageProps => {
     const newMsg = makeMsg(msg);
     setMessages((prev) => [...prev, newMsg]);
+    return newMsg;
   }, []);
 
   /**

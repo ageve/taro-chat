@@ -10,6 +10,7 @@ import React, {
 import FileFillSvg from "../../assets/svg/file-fill.svg";
 import { downloadFileForOpen } from "../../util/downloadFileUtil";
 import { MessageProps } from "../Message/types";
+import Status from "../Status";
 import styles from "./index.module.scss";
 import { MessageFileExtra } from "./type";
 
@@ -54,36 +55,46 @@ export default function Bubble({
   );
 
   return (
-    <View className={styles["chat-bubble"]}>
-      {message.type === "Text" && (
-        <Text className={styles["chat-bubble-text"]}>{message.content}</Text>
-      )}
-      {message.type === "Image" && (
-        <Image
-          className={styles["chat-bubble-image"]}
-          mode="aspectFit"
-          src={message.content}
-          onClick={handleImageClick}
-        />
-      )}
-      {message.type === "File" && (
-        <View className={styles["chat-bubble-file"]} onClick={handleFileClick}>
+    <View
+      className={`${styles["chat-bubble-box"]} ${
+        message.position === "right" ? styles["chat-bubble-box-right"] : ""
+      }`}
+    >
+      <View className={styles["chat-bubble"]}>
+        {message.type === "Text" && (
+          <Text className={styles["chat-bubble-text"]}>{message.content}</Text>
+        )}
+        {message.type === "Image" && (
           <Image
-            className={styles["chat-bubble-file-icon"]}
-            src={FileFillSvg}
-            mode="aspectFill"
+            className={styles["chat-bubble-image"]}
+            mode="aspectFit"
+            src={message.content}
+            onClick={handleImageClick}
           />
-          <View className={styles["chat-bubble-file-content"]}>
-            <Text className={styles["chat-bubble-file-content-name"]}>
-              {(message.extra as MessageFileExtra)?.name}
-            </Text>
-            <Text className={styles["chat-bubble-file-content-size"]}>
-              {(message.extra as MessageFileExtra)?.size}
-            </Text>
+        )}
+        {message.type === "File" && (
+          <View
+            className={styles["chat-bubble-file"]}
+            onClick={handleFileClick}
+          >
+            <Image
+              className={styles["chat-bubble-file-icon"]}
+              src={FileFillSvg}
+              mode="aspectFill"
+            />
+            <View className={styles["chat-bubble-file-content"]}>
+              <Text className={styles["chat-bubble-file-content-name"]}>
+                {(message.extra as MessageFileExtra)?.name}
+              </Text>
+              <Text className={styles["chat-bubble-file-content-size"]}>
+                {(message.extra as MessageFileExtra)?.size}
+              </Text>
+            </View>
           </View>
-        </View>
-      )}
-      {Children.map(children, bindProps)}
+        )}
+        {Children.map(children, bindProps)}
+      </View>
+      <Status message={message} />
     </View>
   );
 }
