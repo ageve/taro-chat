@@ -7,6 +7,7 @@ export default Chat;
 export type {
   MessageOptionProps,
   MessagePosition,
+  MessageProps,
   MessageStatus,
   MessageType,
   User,
