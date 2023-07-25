@@ -10,7 +10,6 @@ view {
     display: flex;
     flex-direction: column;
     overflow: hidden;
-    padding-top: 26px;
   }
   &-message-box {
     position: relative;
@@ -36,6 +35,9 @@ view {
       &-right {
         align-items: flex-end;
         flex-direction: column-reverse;
+      }
+      &:first-child {
+        padding-top: 26px;
       }
     }
     &-float {
