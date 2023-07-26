@@ -18,4 +18,20 @@
     width: 300px;
     height: 300px;
   }
+
+  @include respond-to('pc'){
+    max-width: 400Px;
+    background-color: white;
+    border-radius: 20Px;
+
+    padding: 15Px 30Px;
+    &-text {
+      min-width: 40Px;
+
+    }
+    &-image {
+      width: 300Px;
+      height: 300Px;
+    }
+  }
 }

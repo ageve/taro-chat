@@ -7,5 +7,7 @@ export default defineAppConfig({
     navigationBarBackgroundColor: '#fff',
     navigationBarTitleText: 'WeChat',
     navigationBarTextStyle: 'black'
-  }
+  },
+  resizable: true,
+  pageOrientation: "auto",
 })

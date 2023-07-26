@@ -1,3 +1,4 @@
+
 .chat-toolbar-box {
   display: flex;
   justify-content: flex-start;
@@ -29,6 +30,38 @@
     &-name {
       font-size: 24px;
       color: #666666;
+    }
+  }
+}
+
+@include respond-to('pc'){
+  .chat-toolbar-box {
+    padding: 0 16Px 10Px;
+  }
+  .chat-toolbar {
+    &-item {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      margin-right: 15Px;
+      &-icon-wrap {
+        width: 26Px;
+        height: 26Px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 8Px;
+        background-color: white;
+        margin-bottom: 2Px;
+      }
+      &-icon {
+        width: 16Px;
+        height: 16Px;
+      }
+      &-name {
+        display: none;
+      }
     }
   }
 }

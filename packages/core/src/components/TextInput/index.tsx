@@ -1,4 +1,4 @@
-import { CommonEventFunction, Input, InputProps } from "@tarojs/components";
+import { CommonEventFunction, Input, InputProps, Textarea, TextareaProps } from "@tarojs/components";
 import React, { useCallback, useMemo, useState } from "react";
 import styles from "./index.module.scss";
 
@@ -18,6 +18,13 @@ export default function TextInput(props: Props) {
 
   const handleInput: CommonEventFunction<InputProps.inputValueEventDetail> =
     useCallback((event) => {
+      console.log('target', event)
+      
+      setValue(event.detail.value);
+    }, []);
+
+    const handleTextarea: CommonEventFunction<TextareaProps.onInputEventDetail> = useCallback((event) => {
+      console.log('target', event)
       setValue(event.detail.value);
     }, []);
 
@@ -32,6 +39,18 @@ export default function TextInput(props: Props) {
 
   return useMemo(() => {
     return (
+<>
+      <Textarea
+        // type="text"
+        value={value ?? ""}
+        className={styles["chat-textarea"]}
+        onInput={handleTextarea}
+        onConfirm={handleConfirm}
+        onFocus={handleFocus}
+        onBlur={handleBlur}
+        confirmType="send"
+        adjustPosition={false}
+      />
       <Input
         type="text"
         value={value ?? ""}
@@ -43,6 +62,7 @@ export default function TextInput(props: Props) {
         confirmType="send"
         adjustPosition={false}
       />
+</>
     );
-  }, [handleBlur, handleConfirm, handleFocus, handleInput, value]);
+  }, [handleBlur, handleConfirm, handleFocus, handleInput, handleTextarea, value]);
 }
