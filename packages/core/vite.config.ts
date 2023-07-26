@@ -19,5 +19,13 @@ export default defineConfig({
       ],
     },
   },
+  css: {
+    preprocessorOptions: {
+      // 导入scss预编译程序
+      scss: {
+        additionalData: `@import "./src/assets/styles/media_screen.module.scss";`,
+      },
+    },
+  },
   plugins: [dts()], // 生成 TS 类型文件
 });

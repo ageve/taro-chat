@@ -29,7 +29,7 @@ export const ToolbarButton = (props: ToolbarButtonProps) => {
       <View className={styles["chat-toolbar-item-icon-wrap"]}>
         <Image className={styles["chat-toolbar-item-icon"]} src={img} />
       </View>
-      <Text className={styles["chat-toolbar-item-text"]}>{title}</Text>
+      <Text className={styles["chat-toolbar-item-name"]}>{title}</Text>
     </View>
   );
 };

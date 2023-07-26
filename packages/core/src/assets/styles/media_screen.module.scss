@@ -1,0 +1,25 @@
+$breakPoints: (
+  'phone': (320Px,
+    640Px,
+  ),
+  'pc': 641Px,
+);
+
+@mixin respond-to($breakName) {
+  $dp: map-get($breakPoints, $breakName);
+
+  @if type-of($dp)=='list' {
+    $min: nth($dp, 1);
+    $max: nth($dp, 2);
+
+    @media (min-width: $min) and (max-width: $max) {
+      @content;
+    }
+  }
+
+  @else {
+    @media (min-width: $dp) {
+      @content;
+    }
+  }
+}

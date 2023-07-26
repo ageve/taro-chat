@@ -41,4 +41,24 @@
     width: 20px;
     background-color: transparent;
   }
+
+  @include respond-to('pc'){
+  &-time {
+    margin-bottom: 20Px;
+    font-size: 18Px;
+  }
+
+  &-name {
+    font-size: 20Px;
+    margin-bottom: 10Px;
+    margin-left: 0.5Px;
+    &-right {
+      margin-left: 0Px;
+      margin-right: 0.5Px;
+    }
+  }
+  &-space {
+    width: 20Px;
+  }
+  }
 }
