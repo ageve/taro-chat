@@ -1,4 +1,5 @@
 import {
+  Button,
   CommonEventFunction,
   Image,
   InputProps,
@@ -10,6 +11,7 @@ import React, {
   useCallback,
   useEffect,
   useImperativeHandle,
+  useRef,
   useState,
 } from "react";
 import IconFileSvg from "../../assets/svg/file.svg";
@@ -124,6 +126,15 @@ const Chat = React.forwardRef<ChatRef, ChatProps>((props, ref) => {
       [onSend]
     );
 
+    const textInputRef = useRef<{resetValue: (callback: (value: string) => void) => void}>()
+
+    const onSubmit = useCallback(() => {
+      textInputRef.current?.resetValue(async (value) => {
+        console.log("value", value)
+        await onSend("Text", value)
+      })
+    }, [onSend])
+
   const handleImageInput = useCallback(async () => {
     try {
       const result = await Taro.chooseMedia({
@@ -225,10 +236,12 @@ const Chat = React.forwardRef<ChatRef, ChatProps>((props, ref) => {
         <View className={styles["chat-footer"]}>
           <View className={styles["chat-input-wrap"]}>
             <TextInput
+              ref={textInputRef}
               onConfirm={handleConfirm}
               onFocus={handleFocus}
               onBlur={handleBlur}
             />
+            <Button type="primary" className={styles["chat-footer_send-btn"]} onClick={onSubmit}>发送</Button>
             {showRightAction &&
               (rightAction || (
                 <Image
