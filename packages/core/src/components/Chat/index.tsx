@@ -74,6 +74,7 @@ const Chat = React.forwardRef<ChatRef, ChatProps>((props, ref) => {
 
   const messageIntoBottom = useCallback(() => {
     requestAnimationFrame(() => {
+      console.log('scrollToBottomAnchorId:', scrollToBottomAnchorId)
       setScrollToView(scrollToBottomAnchorId);
     });
   }, []);
@@ -197,7 +198,7 @@ const Chat = React.forwardRef<ChatRef, ChatProps>((props, ref) => {
       >
         <View className={styles["chat-message-box"]}>
           <ScrollView
-            scrollWithAnimation
+            // scrollWithAnimation
             scrollY
             scrollIntoView={scrollToView}
             className={styles["chat-message"]}

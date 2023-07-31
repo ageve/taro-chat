@@ -22,7 +22,7 @@ const TextInput = forwardRef((props: Props, ref) => {
   const [scrollTop, setScrollTop] = useState(0)
   const handleInput: CommonEventFunction<TextareaProps.onInputEventDetail> =
     useCallback((event) => {
-      if(event.detail.value.split('').length === event.detail.cursor){
+      if(event.detail.value.length === event.detail.cursor){
         Taro.nextTick(() => {
           query.select("#scroll-input-wrap").fields({ node: true, size: true }).exec(res => {
             setScrollTop(res[0].height * pixelRatio)
@@ -33,8 +33,8 @@ const TextInput = forwardRef((props: Props, ref) => {
     }, [query]);
 
     const handleTextarea: CommonEventFunction<TextareaProps.onInputEventDetail> = useCallback((event) => {
-      const arr = event.detail.value.split('')
-      if(arr[arr.length - 1] === '\n'){
+      const val = event.detail.value
+      if(val[val.length - 1] === '\n'){
         onConfirm(event);
         setValue("");
         return
