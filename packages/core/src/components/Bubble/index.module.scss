@@ -17,7 +17,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 15px 30px;
+  padding: 15px 20px;
+  overflow: hidden;
   &-text {
     min-width: 40px;
     white-space: pre-wrap;
@@ -25,16 +26,17 @@
     overflow-wrap: break-word;
   }
   &-image {
-    width: 300px;
-    height: 300px;
+    width: 240px;
+    // height: 300px;
+    border-radius: 20px;
   }
   &-file {
     display: flex;
     justify-content: flex-start;
     align-items: center;
     &-icon {
-      width: 70px;
-      height: 70px;
+      width: 60px;
+      height: 60px;
       margin-right: 20px;
     }
     &-content {
@@ -67,5 +69,8 @@
         height: 300px;
       }
     }
+  }
+  &-no-padding {
+    padding: 0;
   }
 }

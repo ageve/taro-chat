@@ -6,8 +6,12 @@ import React, {
   ReactNode,
   isValidElement,
   useCallback,
+  useMemo,
 } from "react";
-import FileFillSvg from "../../assets/svg/file-fill.svg";
+import IconFileDoc from "../../assets/images/icon-file-doc.png";
+import IconFilePdf from "../../assets/images/icon-file-pdf.png";
+import IconFilePpt from "../../assets/images/icon-file-ppt.png";
+import IconFileXls from "../../assets/images/icon-file-xls.png";
 import { downloadFileForOpen } from "../../util/downloadFileUtil";
 import { MessageProps } from "../Message/types";
 import Status from "../Status";
@@ -55,20 +59,42 @@ export default function Bubble({
     [message]
   );
 
+  const fileIcon = useMemo(() => {
+    switch ((message?.extra as MessageFileExtra)?.fileType) {
+      case "doc":
+      case "docx":
+        return IconFileDoc;
+      case "pdf":
+        return IconFilePdf;
+      case "xls":
+      case "xlsx":
+        return IconFileXls;
+      case "ppt":
+      case "pptx":
+        return IconFilePpt;
+      default:
+        return null;
+    }
+  }, [message.extra]);
+
   return (
     <View
       className={`${styles["chat-bubble-box"]} ${
         message.position === "right" ? styles["chat-bubble-box-right"] : ""
       }`}
     >
-      <View className={styles["chat-bubble"]}>
+      <View
+        className={`${styles["chat-bubble"]} ${
+          message.type === "Image" && styles["chat-bubble-no-padding"]
+        }`}
+      >
         {message.type === "Text" && (
           <Text className={styles["chat-bubble-text"]}>{message.content}</Text>
         )}
         {message.type === "Image" && (
           <Image
             className={styles["chat-bubble-image"]}
-            mode="aspectFit"
+            mode="widthFix"
             src={message.content}
             onClick={handleImageClick}
           />
@@ -80,8 +106,8 @@ export default function Bubble({
           >
             <Image
               className={styles["chat-bubble-file-icon"]}
-              src={FileFillSvg}
-              mode="aspectFill"
+              src={fileIcon}
+              mode="aspectFit"
             />
             <View className={styles["chat-bubble-file-content"]}>
               <Text className={styles["chat-bubble-file-content-name"]}>
