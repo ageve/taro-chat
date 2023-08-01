@@ -36,6 +36,7 @@ export type ChatProps = ComposerProps &
 
 export interface ChatRef {
   scrollToBottom: () => void;
+  scrollTo: (id: string) => void;
 }
 
 const scrollToBottomAnchorId = "scrollBottomAnchor";
@@ -80,6 +81,13 @@ const Chat = React.forwardRef<ChatRef, ChatProps>((props, ref) => {
     });
   }, []);
 
+  const messageIntoView = useCallback((id:string = scrollToBottomAnchorId) => {
+    requestAnimationFrame(() => {
+      console.log('scrollToId:', id)
+      setScrollToView(id);
+    });
+  }, []);
+
   const handleClickRightAction = useCallback(() => {
     setHasToolbar((it) => !it);
     messageIntoBottom();
@@ -91,6 +99,7 @@ const Chat = React.forwardRef<ChatRef, ChatProps>((props, ref) => {
 
   useImperativeHandle(ref, () => ({
     scrollToBottom: messageIntoBottom,
+    scrollTo: messageIntoView,
   }));
 
   useEffect(() => {
@@ -132,12 +141,13 @@ const Chat = React.forwardRef<ChatRef, ChatProps>((props, ref) => {
     resetValue: (callback: (value: string) => void) => void;
   }>();
 
-  const onSubmit = useCallback(() => {
-    textInputRef.current?.resetValue(async (value) => {
-      console.log("value", value);
-      await onSend("Text", value);
-    });
-  }, [onSend]);
+    const onSubmit = useCallback(() => {
+      textInputRef.current?.resetValue(async (value) => {
+        console.log("value", value)
+        if(!value.trim()) return
+        await onSend("Text", value)
+      })
+    }, [onSend])
 
   const handleImageInput = useCallback(async () => {
     try {
@@ -215,6 +225,7 @@ const Chat = React.forwardRef<ChatRef, ChatProps>((props, ref) => {
                 return (
                   <View
                     key={item.id}
+                    id={item.id}
                     className={`${styles["chat-message-wrap"]} ${
                       item.position === "right" &&
                       styles["chat-message-wrap-right"]

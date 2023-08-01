@@ -10,7 +10,6 @@ view {
     display: flex;
     flex-direction: column;
     overflow: hidden;
-    padding-top: 26px;
 
     @include respond-to("pc") {
       padding: 0;

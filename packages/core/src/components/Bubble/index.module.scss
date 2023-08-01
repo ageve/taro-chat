@@ -17,8 +17,13 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 15px 20px;
   overflow: hidden;
+  padding: 14px 14px;
+  @include respond-to('pc'){
+    background-color: white;
+    border-radius: 8Px;
+    padding: 10Px 8Px;
+  }
   &-text {
     min-width: 40px;
     white-space: pre-wrap;
@@ -55,22 +60,18 @@
       }
     }
 
-    @include respond-to("pc") {
-      max-width: 400px;
-      background-color: white;
-      border-radius: 20px;
+  @include respond-to('pc'){
+    &-text {
+      min-width: 40Px;
 
-      padding: 15px 30px;
-      &-text {
-        min-width: 40px;
-      }
-      &-image {
-        width: 300px;
-        height: 300px;
-      }
+    }
+    &-image {
+      width: 300Px;
+      height: 300Px;
     }
   }
   &-no-padding {
     padding: 0;
   }
+}
 }

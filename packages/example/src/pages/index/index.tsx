@@ -1,6 +1,6 @@
 import { Text, View } from "@tarojs/components";
-import { useLoad } from "@tarojs/taro";
-import { useEffect, useRef } from "react";
+import Taro, { useLoad } from "@tarojs/taro";
+import { useCallback, useEffect, useRef } from "react";
 import Chat, {
   Bubble,
   ChatRef,
@@ -14,7 +14,7 @@ const sleep = (s = 1000) => new Promise((r) => setTimeout(r, s));
 
 const initMessage: MessageOptionProps[] = [
   {
-    content: "短语3",
+    content: "短语-4",
     type: "Text",
     position: "left",
     status: "sent",
@@ -37,7 +37,7 @@ const initMessage: MessageOptionProps[] = [
     },
   },
   {
-    content: "短语3",
+    content: "短语-5",
     type: "Text",
     position: "left",
     status: "sent",
@@ -60,7 +60,79 @@ const initMessage: MessageOptionProps[] = [
     },
   },
   {
-    content: "短语3",
+    content: "短语-6",
+    type: "Text",
+    position: "left",
+    status: "sent",
+    user: {
+      avatar:
+        "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fc-ssl.duitang.com%2Fuploads%2Fblog%2F202105%2F11%2F20210511193549_08e64.thumb.1000_0.jpg&refer=http%3A%2F%2Fc-ssl.duitang.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1691305516&t=b6bf45cbf8dcb064102c4f94727cc1e6",
+      name: "test1",
+    },
+  },
+  {
+    content:
+      "https://images.unsplash.com/photo-1689172044594-88eaec1c70fd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80",
+    type: "Image",
+    position: "right",
+    status: "sent",
+    user: {
+      avatar:
+        "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fc-ssl.duitang.com%2Fuploads%2Fitem%2F202002%2F26%2F20200226204448_sZSun.thumb.1000_0.jpeg&refer=http%3A%2F%2Fc-ssl.duitang.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1691305659&t=3ad7672da248655e7ae5ad9a7d4f2499",
+      name: "test2",
+    },
+  },
+];
+
+const newMessage: MessageOptionProps[] = [
+  {
+    content: "短语-1",
+    type: "Text",
+    position: "left",
+    status: "sent",
+    user: {
+      avatar:
+        "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fc-ssl.duitang.com%2Fuploads%2Fblog%2F202105%2F11%2F20210511193549_08e64.thumb.1000_0.jpg&refer=http%3A%2F%2Fc-ssl.duitang.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1691305516&t=b6bf45cbf8dcb064102c4f94727cc1e6",
+      name: "test1",
+    },
+  },
+  {
+    content:
+      "https://images.unsplash.com/photo-1689172044594-88eaec1c70fd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80",
+    type: "Image",
+    position: "right",
+    status: "sent",
+    user: {
+      avatar:
+        "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fc-ssl.duitang.com%2Fuploads%2Fitem%2F202002%2F26%2F20200226204448_sZSun.thumb.1000_0.jpeg&refer=http%3A%2F%2Fc-ssl.duitang.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1691305659&t=3ad7672da248655e7ae5ad9a7d4f2499",
+      name: "test2",
+    },
+  },
+  {
+    content: "短语-2",
+    type: "Text",
+    position: "left",
+    status: "sent",
+    user: {
+      avatar:
+        "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fc-ssl.duitang.com%2Fuploads%2Fblog%2F202105%2F11%2F20210511193549_08e64.thumb.1000_0.jpg&refer=http%3A%2F%2Fc-ssl.duitang.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1691305516&t=b6bf45cbf8dcb064102c4f94727cc1e6",
+      name: "test1",
+    },
+  },
+  {
+    content:
+      "https://images.unsplash.com/photo-1689172044594-88eaec1c70fd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80",
+    type: "Image",
+    position: "right",
+    status: "sent",
+    user: {
+      avatar:
+        "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fc-ssl.duitang.com%2Fuploads%2Fitem%2F202002%2F26%2F20200226204448_sZSun.thumb.1000_0.jpeg&refer=http%3A%2F%2Fc-ssl.duitang.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1691305659&t=3ad7672da248655e7ae5ad9a7d4f2499",
+      name: "test2",
+    },
+  },
+  {
+    content: "短语-3",
     type: "Text",
     position: "left",
     status: "sent",
@@ -107,38 +179,21 @@ export default function Index() {
     console.log("Page loaded.");
   });
 
-  const { messages, appendMsg, appendMsgs } = useMessages(initMessage);
+  const { messages, appendMsg, appendMsgs, prependMsgs } = useMessages(initMessage);
   const chatRef = useRef<ChatRef>(null);
+  const startId = useRef('')
+  const newPage = useCallback(async () => {
+    await sleep(100)
+    const message = prependMsgs(newMessage);
+    startId.current = message[newMessage.length].id
+    Taro.nextTick(() => {
+      chatRef?.current?.scrollTo(message[newMessage.length - 2 ].id);
+    })
+  }, []);
 
   useEffect(() => {
-    sleep(2000);
-    appendMsgs([
-      {
-        content: "短语3",
-        type: "Text",
-        position: "left",
-        status: "fail",
-        user: {
-          avatar:
-            "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fc-ssl.duitang.com%2Fuploads%2Fblog%2F202105%2F11%2F20210511193549_08e64.thumb.1000_0.jpg&refer=http%3A%2F%2Fc-ssl.duitang.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1691305516&t=b6bf45cbf8dcb064102c4f94727cc1e6",
-          name: "test3",
-        },
-      },
-      {
-        content:
-          "https://images.unsplash.com/photo-1689172044594-88eaec1c70fd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80",
-        type: "Image",
-        position: "right",
-        status: "pending",
-        user: {
-          avatar:
-            "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fc-ssl.duitang.com%2Fuploads%2Fitem%2F202002%2F26%2F20200226204448_sZSun.thumb.1000_0.jpeg&refer=http%3A%2F%2Fc-ssl.duitang.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1691305659&t=3ad7672da248655e7ae5ad9a7d4f2499",
-          name: "test2",
-        },
-      },
-    ]);
-    chatRef.current?.scrollToBottom();
-  }, []);
+    console.log('messages', messages)
+  }, [messages])
 
   return (
     <View className="chat-room">
@@ -158,7 +213,9 @@ export default function Index() {
             content,
             position: "left",
           });
-          chatRef?.current?.scrollToBottom();
+          Taro.nextTick(() => {
+            chatRef?.current?.scrollToBottom();
+          })
         }}
         customMessageContent={(data) => {
           if (data.content === "短语3") {
@@ -171,14 +228,14 @@ export default function Index() {
             // 自定义 bubble 渲染显示
             return (
               <Bubble message={data}>
-                <Text>测试3</Text>
+                <Text>{data.content}</Text>
               </Bubble>
             );
           }
           return null;
         }}
         onRefresherRefresh={async () => {
-          await sleep(15000);
+          await newPage()
         }}
         renderAfterMessageContent={(msg) => {
           return (

@@ -41,7 +41,9 @@ export default function useMessages(initialState: MessageOptionProps[] = []) {
    * */
   const prependMsgs = useCallback((msgs: MessagesOption) => {
     const list = msgs.map((it) => makeMsg(it));
-    setMessages((prev: Messages) => [...list, ...prev]);
+    let newList: Messages = []
+    setMessages((prev: Messages) => {newList = [...list, ...prev]; return newList});
+    return newList
   }, []);
 
   /**
@@ -50,7 +52,9 @@ export default function useMessages(initialState: MessageOptionProps[] = []) {
    * */
   const appendMsgs = useCallback((msgs: MessagesOption) => {
     const list = msgs.map((it) => makeMsg(it));
-    setMessages((prev: Messages) => [...prev, ...list]);
+    let newList: Messages = []
+    setMessages((prev: Messages) => {newList = [...prev, ...list]; return newList});
+    return newList
   }, []);
 
   /**
