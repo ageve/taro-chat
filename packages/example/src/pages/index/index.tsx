@@ -183,12 +183,13 @@ export default function Index() {
   const chatRef = useRef<ChatRef>(null);
   const startId = useRef('')
   const newPage = useCallback(async () => {
-    await sleep(100)
-    const message = prependMsgs(newMessage);
+    await sleep()
+    const message = await prependMsgs(newMessage);
     startId.current = message[newMessage.length].id
     Taro.nextTick(() => {
       chatRef?.current?.scrollTo(message[newMessage.length - 2 ].id);
     })
+    return message
   }, []);
 
   useEffect(() => {
@@ -235,7 +236,7 @@ export default function Index() {
           return null;
         }}
         onRefresherRefresh={async () => {
-          await newPage()
+          return newPage()
         }}
         renderAfterMessageContent={(msg) => {
           return (

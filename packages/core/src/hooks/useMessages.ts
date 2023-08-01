@@ -39,22 +39,22 @@ export default function useMessages(initialState: MessageOptionProps[] = []) {
    * @description 在头部添加消息，配合上拉刷新实现显示历史消息
    *
    * */
-  const prependMsgs = useCallback((msgs: MessagesOption) => {
+  const prependMsgs = useCallback(async (msgs: MessagesOption): Promise<Messages> => {
     const list = msgs.map((it) => makeMsg(it));
-    let newList: Messages = []
-    setMessages((prev: Messages) => {newList = [...list, ...prev]; return newList});
-    return newList
+    return new Promise(resolve => {
+      setMessages((prev: Messages) => {const newList = [...list, ...prev]; resolve(newList); return newList});
+    })
   }, []);
 
   /**
    * @description 在尾部添加多条消息，用于补充多条消息
    *
    * */
-  const appendMsgs = useCallback((msgs: MessagesOption) => {
+  const appendMsgs = useCallback(async (msgs: MessagesOption): Promise<Messages> => {
     const list = msgs.map((it) => makeMsg(it));
-    let newList: Messages = []
-    setMessages((prev: Messages) => {newList = [...prev, ...list]; return newList});
-    return newList
+    return new Promise(resolve => {
+      setMessages((prev: Messages) => {const newList = [...prev, ...list]; resolve(newList); return newList});
+    })
   }, []);
 
   /**
