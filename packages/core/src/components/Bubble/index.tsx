@@ -39,7 +39,8 @@ export default function Bubble({
     // TODO: 具体实现
     downloadFileForOpen({
       url: message.content,
-      fileName: (message.extra as MessageFileExtra).name,
+      fileName: (message.extra as MessageFileExtra).fileName,
+      // 返回，或者判断文件后缀
       fileType: (message.extra as MessageFileExtra).fileType,
     });
   }, [message.content, message.extra]);
@@ -84,11 +85,11 @@ export default function Bubble({
             />
             <View className={styles["chat-bubble-file-content"]}>
               <Text className={styles["chat-bubble-file-content-name"]}>
-                {(message.extra as MessageFileExtra)?.name}
+                {(message.extra as MessageFileExtra)?.fileName}
               </Text>
-              <Text className={styles["chat-bubble-file-content-size"]}>
+              {/* <Text className={styles["chat-bubble-file-content-size"]}>
                 {(message.extra as MessageFileExtra)?.size}
-              </Text>
+              </Text> */}
             </View>
           </View>
         )}

@@ -45,7 +45,7 @@
       &-name {
         font-size: 26px;
         color: #3c3c3c;
-        margin-bottom: 16px;
+        // margin-bottom: 16px;
       }
       &-size {
         color: #656565;
@@ -53,20 +53,19 @@
       }
     }
 
-  @include respond-to('pc'){
-    max-width: 400Px;
-    background-color: white;
-    border-radius: 20Px;
+    @include respond-to("pc") {
+      max-width: 400px;
+      background-color: white;
+      border-radius: 20px;
 
-    padding: 15Px 30Px;
-    &-text {
-      min-width: 40Px;
-
-    }
-    &-image {
-      width: 300Px;
-      height: 300Px;
+      padding: 15px 30px;
+      &-text {
+        min-width: 40px;
+      }
+      &-image {
+        width: 300px;
+        height: 300px;
+      }
     }
   }
-}
 }

@@ -82,6 +82,24 @@ const initMessage: MessageOptionProps[] = [
       name: "test2",
     },
   },
+  {
+    content:
+      "https://hugofsa.yocdev.com/hugo/9318ce75-026a-4c9b-b586-b766c5ec67be.pdf",
+    type: "File",
+    position: "right",
+    status: "sent",
+    extra: {
+      fileName: "高赖氨酸牛奶.pdf",
+      fileUrl:
+        "https://hugofsa.yocdev.com/hugo/9318ce75-026a-4c9b-b586-b766c5ec67be.pdf",
+      fileType: "pdf",
+    },
+    user: {
+      avatar:
+        "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fc-ssl.duitang.com%2Fuploads%2Fitem%2F202002%2F26%2F20200226204448_sZSun.thumb.1000_0.jpeg&refer=http%3A%2F%2Fc-ssl.duitang.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1691305659&t=3ad7672da248655e7ae5ad9a7d4f2499",
+      name: "test2",
+    },
+  },
 ];
 
 export default function Index() {
