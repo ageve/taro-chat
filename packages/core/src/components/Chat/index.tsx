@@ -52,6 +52,7 @@ const Chat = React.forwardRef<ChatRef, ChatProps>((props, ref) => {
     locale = "zh-CN",
     locales,
     customMessageContent,
+    renderAfterMessageContent,
     onRefresherRefresh,
   } = props;
 
@@ -74,7 +75,7 @@ const Chat = React.forwardRef<ChatRef, ChatProps>((props, ref) => {
 
   const messageIntoBottom = useCallback(() => {
     requestAnimationFrame(() => {
-      console.log('scrollToBottomAnchorId:', scrollToBottomAnchorId)
+      console.log("scrollToBottomAnchorId:", scrollToBottomAnchorId);
       setScrollToView(scrollToBottomAnchorId);
     });
   }, []);
@@ -127,14 +128,16 @@ const Chat = React.forwardRef<ChatRef, ChatProps>((props, ref) => {
       [onSend]
     );
 
-    const textInputRef = useRef<{resetValue: (callback: (value: string) => void) => void}>()
+  const textInputRef = useRef<{
+    resetValue: (callback: (value: string) => void) => void;
+  }>();
 
-    const onSubmit = useCallback(() => {
-      textInputRef.current?.resetValue(async (value) => {
-        console.log("value", value)
-        await onSend("Text", value)
-      })
-    }, [onSend])
+  const onSubmit = useCallback(() => {
+    textInputRef.current?.resetValue(async (value) => {
+      console.log("value", value);
+      await onSend("Text", value);
+    });
+  }, [onSend]);
 
   const handleImageInput = useCallback(async () => {
     try {
@@ -218,6 +221,7 @@ const Chat = React.forwardRef<ChatRef, ChatProps>((props, ref) => {
                     }`}
                   >
                     <Message
+                      renderAfterMessageContent={renderAfterMessageContent}
                       {...item}
                       renderMessageContent={renderMessageContent}
                     />
@@ -242,7 +246,13 @@ const Chat = React.forwardRef<ChatRef, ChatProps>((props, ref) => {
               onFocus={handleFocus}
               onBlur={handleBlur}
             />
-            <Button type="primary" className={styles["chat-footer_send-btn"]} onClick={onSubmit}>发送</Button>
+            <Button
+              type="primary"
+              className={styles["chat-footer_send-btn"]}
+              onClick={onSubmit}
+            >
+              发送
+            </Button>
             {showRightAction &&
               (rightAction || (
                 <Image

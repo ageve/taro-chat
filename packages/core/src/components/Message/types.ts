@@ -51,6 +51,12 @@ export interface MessageProps {
    */
   renderMessageContent?: (message: MessageProps) => React.ReactNode;
   /**
+   * 在消息内容后面追加显示内容
+   * @param data
+   * @returns
+   */
+  renderAfterMessageContent?: (data: MessageProps) => React.ReactNode;
+  /**
    * 补充额外的信息，用于丰富消息格式
    */
   extra?: unknown;

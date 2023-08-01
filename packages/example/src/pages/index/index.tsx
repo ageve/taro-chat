@@ -162,9 +162,18 @@ export default function Index() {
         onRefresherRefresh={async () => {
           await sleep(15000);
         }}
+        renderAfterMessageContent={(msg) => {
+          return (
+            msg.position === "left" && (
+              <View style={{ marginLeft: "4px", marginTop: "12px" }}>
+                来源：文档
+              </View>
+            )
+          );
+        }}
         showRightAction={false}
         floatAction={<View>转发</View>}
-        footer={<View>测试一下</View>}
+        footer={<View>footer</View>}
       />
     </View>
   );

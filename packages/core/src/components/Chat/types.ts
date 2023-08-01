@@ -56,5 +56,6 @@ export type ComposerProps = {
   floatActionProps?: { position: FloatActionPropsPosition };
   footer?: JSX.Element;
   customMessageContent?: (data: MessageProps) => React.ReactNode;
+  renderAfterMessageContent?: (data: MessageProps) => React.ReactNode;
   onRefresherRefresh?: CommonEventFunction;
 };

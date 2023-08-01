@@ -6,7 +6,11 @@ import styles from "./index.module.scss";
 import { MessageProps } from "./types";
 
 export default function Message(props: MessageProps) {
-  const { renderMessageContent = () => null, ...msg } = props;
+  const {
+    renderMessageContent = () => null,
+    renderAfterMessageContent = () => null,
+    ...msg
+  } = props;
   const { user = {}, position = "left", hasTime = true, createdAt } = msg;
   const { avatar, name } = user;
 
@@ -43,6 +47,7 @@ export default function Message(props: MessageProps) {
             </Text>
           )}
           <View>{renderMessageContent(msg)}</View>
+          <>{renderAfterMessageContent(msg)}</>
         </View>
       </View>
     </View>
