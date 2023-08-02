@@ -1,6 +1,6 @@
 import { Text, View } from "@tarojs/components";
 import Taro, { useLoad } from "@tarojs/taro";
-import { useCallback, useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import Chat, {
   Bubble,
   ChatRef,
@@ -179,7 +179,7 @@ export default function Index() {
     console.log("Page loaded.");
   });
 
-  const { messages, appendMsg, appendMsgs, prependMsgs } = useMessages(initMessage);
+  const { messages, appendMsg, appendMsgs, prependMsgs } = useMessages();
   const chatRef = useRef<ChatRef>(null);
   const startId = useRef('')
   const newPage = useCallback(async () => {
@@ -193,14 +193,18 @@ export default function Index() {
   }, []);
 
   useEffect(() => {
-    console.log('messages', messages)
-  }, [messages])
+    appendMsgs(initMessage).then(() => {
+      chatRef.current?.scrollToBottom()
+    })
+  }, [])
+  const [disabled, setDisabled] = useState(false)
 
   return (
     <View className="chat-room">
       <Chat
         ref={chatRef}
         messages={messages}
+        disabled={disabled}
         onSend={async (type, content) => {
           console.log(
             "%c bug",

@@ -32,6 +32,7 @@ const pixelRatio = 750 / Taro.getSystemInfoSync().windowWidth;
 export type ChatProps = ComposerProps &
   ConfigContextType & {
     messages: Messages;
+    disabled?: boolean
   };
 
 export interface ChatRef {
@@ -55,6 +56,7 @@ const Chat = React.forwardRef<ChatRef, ChatProps>((props, ref) => {
     customMessageContent,
     renderAfterMessageContent,
     onRefresherRefresh,
+    disabled = false,
   } = props;
 
   const [hasToolbar, setHasToolbar] = useState(false);
@@ -256,6 +258,7 @@ const Chat = React.forwardRef<ChatRef, ChatProps>((props, ref) => {
               onConfirm={handleConfirm}
               onFocus={handleFocus}
               onBlur={handleBlur}
+              disabled={disabled}
             />
             <Button
               type="primary"

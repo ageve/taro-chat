@@ -7,6 +7,7 @@ interface Props {
   onConfirm: CommonEventFunction<InputProps.inputValueEventDetail>;
   onFocus: CommonEventFunction<InputProps.inputForceEventDetail>;
   onBlur: () => void;
+  disabled?: boolean
 }
 
 const pixelRatio = 750 / Taro.getSystemInfoSync().windowWidth;
@@ -16,6 +17,7 @@ const TextInput = forwardRef((props: Props, ref) => {
     onConfirm: onConfirm,
     onFocus: handleFocus,
     onBlur: handleBlur,
+    disabled = false
   } = props;
   const [value, setValue] = useState<string>("");
   const query = Taro.createSelectorQuery()
@@ -73,6 +75,7 @@ const TextInput = forwardRef((props: Props, ref) => {
         onBlur={handleBlur}
         adjustPosition={false}
         maxlength={-1}
+        disabled={disabled}
       />
       <ScrollView className={styles["chat-input-wrap_scroll"]} scrollTop={scrollTop} scrollWithAnimation scrollY>
       <Textarea
@@ -86,6 +89,7 @@ const TextInput = forwardRef((props: Props, ref) => {
         adjustPosition={false}
         autoHeight
         maxlength={-1}
+        disabled={disabled}
         id="scroll-input-wrap"
       />
       </ScrollView>

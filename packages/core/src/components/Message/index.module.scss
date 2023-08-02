@@ -7,10 +7,10 @@
   &-time {
     width: 100%;
     height: fit-content;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     text-align: center;
-    color: #656565;
-    font-size: 20px;
+    color: #aaaaaa;
+    font-size: 18px;
   }
   &-content {
     display: flex;
@@ -38,19 +38,19 @@
     }
   }
   &-space {
-    width: 20px;
+    width: 10px;
     background-color: transparent;
   }
 
   @include respond-to('pc'){
   &-time {
-    margin-bottom: 20Px;
+    margin-bottom: 10Px;
     font-size: 14Px;
   }
 
   &-name {
     font-size: 14Px;
-    margin-bottom: 10Px;
+    margin-bottom: 6Px;
     margin-left: 0.5Px;
     &-right {
       margin-left: 0Px;
@@ -58,7 +58,7 @@
     }
   }
   &-space {
-    width: 20Px;
+    width: 10Px;
   }
   }
 }
