@@ -45,11 +45,11 @@
   @include respond-to('pc'){
   &-time {
     margin-bottom: 20Px;
-    font-size: 18Px;
+    font-size: 14Px;
   }
 
   &-name {
-    font-size: 16Px;
+    font-size: 14Px;
     margin-bottom: 10Px;
     margin-left: 0.5Px;
     &-right {

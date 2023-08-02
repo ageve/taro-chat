@@ -2,14 +2,13 @@
     position: relative;
     width: auto;
     flex-grow: 1;
-    height: 20vh;
+    height: 14vh;
     max-height: 120Px;
     outline: hidden;
     border-radius: 40Px;
-    padding: 6Px 16Px;
+    padding: 0Px 16Px;
     font-size: 14Px;
     color: #181818;
-    margin-top: 16Px;
     @include respond-to('phone'){
       display: none;
     }

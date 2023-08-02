@@ -20,9 +20,8 @@
   overflow: hidden;
   padding: 14px 14px;
   @include respond-to('pc'){
-    background-color: white;
     border-radius: 8Px;
-    padding: 10Px 8Px;
+    padding: 6Px 8Px;
   }
   &-text {
     min-width: 40px;
@@ -33,7 +32,7 @@
   &-image {
     width: 240px;
     // height: 300px;
-    border-radius: 20px;
+    // border-radius: 20px;
   }
   &-file {
     display: flex;
@@ -59,19 +58,36 @@
         font-size: 22px;
       }
     }
-
-  @include respond-to('pc'){
-    &-text {
-      min-width: 40Px;
-
-    }
-    &-image {
-      width: 300Px;
-      height: 300Px;
-    }
+    
   }
   &-no-padding {
     padding: 0;
   }
-}
+  @include respond-to('pc'){
+    font-size: 14Px;
+    &-text {
+      min-width: 40Px;
+    }
+    &-image {
+      width: 300Px;
+    }
+    &-file {
+
+      &-icon {
+        width: 40Px;
+        height: 40Px;
+        margin-right: 10Px;
+      }
+      &-content {
+        &-name {
+          font-size: 17Px;
+        }
+        &-size {
+          color: #656565;
+          font-size: 17Px;
+        }
+      }
+      
+    }
+  }
 }
