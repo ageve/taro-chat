@@ -264,6 +264,7 @@ const Chat = React.forwardRef<ChatRef, ChatProps>((props, ref) => {
               type="primary"
               className={styles["chat-footer_send-btn"]}
               onClick={onSubmit}
+              disabled={disabled}
             >
               发送
             </Button>

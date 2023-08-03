@@ -221,6 +221,10 @@ export default function Index() {
           Taro.nextTick(() => {
             chatRef?.current?.scrollToBottom();
           })
+          setDisabled(true)
+          setTimeout(() => {
+            setDisabled(false)
+          }, 3000)
         }}
         customMessageContent={(data) => {
           if (data.content === "短语3") {
