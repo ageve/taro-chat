@@ -17,6 +17,7 @@ const makeMsg = (msg: MessageOptionProps): MessageProps => {
   if (hasTime) {
     lastTs = ts;
   }
+  const userName = msg.user && msg.user.name ? msg.user.name : (msg.position === 'right' ? '我' : '')
 
   return {
     ...msg,
@@ -25,6 +26,7 @@ const makeMsg = (msg: MessageOptionProps): MessageProps => {
     // status: "pending",
     position: msg.position || "left", // 默认显示在左侧
     hasTime,
+    user: {...msg.user, name: userName }
   };
 };
 
