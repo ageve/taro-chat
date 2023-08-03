@@ -67,14 +67,15 @@ view {
     width: 100%;
     height: fit-content;
     background-color: #f5f5f5;
-    padding-bottom: constant(safe-area-inset-bottom);
-    padding-bottom: env(safe-area-inset-bottom);
+    // padding-bottom: constant(safe-area-inset-bottom);
+    // padding-bottom: env(safe-area-inset-bottom);
     display: flex;
     flex-direction: column;
     position: relative;
 
     &_send-btn {
-      height: 62px;
+      height: 60px;
+      padding: 0 40px;
       font-size: 24px;
       margin-left: 20px;
       background-color: #ff630d !important;
@@ -82,7 +83,7 @@ view {
   }
   &-input-wrap {
     width: 100%;
-    padding: 20px 20px 5px;
+    padding: 20px;
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -116,8 +117,8 @@ view {
       width: 100%;
       height: fit-content;
       background-color: #f5f5f5;
-      padding-bottom: constant(safe-area-inset-bottom);
-      padding-bottom: env(safe-area-inset-bottom);
+      // padding-bottom: constant(safe-area-inset-bottom);
+      // padding-bottom: env(safe-area-inset-bottom);
       display: flex;
       flex-direction: column;
 
