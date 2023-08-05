@@ -9,7 +9,7 @@
 }
 
 .chat-bubble {
-  max-width: 78vw;
+  max-width: 70vw;
   height: auto;
   height: fit-content;
   background-color: white;
@@ -28,6 +28,7 @@
     white-space: pre-wrap;
     word-wrap: break-word;
     overflow-wrap: break-word;
+    // user-select: auto;
   }
   &-image {
     width: 240px;

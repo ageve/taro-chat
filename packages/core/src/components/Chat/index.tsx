@@ -21,23 +21,33 @@ import { Messages } from "../../types";
 import Bubble from "../Bubble";
 import { ConfigContextType, ConfigProvider } from "../ConfigProvider";
 import Message from "../Message";
-import { MessageProps } from "../Message/types";
+import { MessageProps, MessageType } from "../Message/types";
 import TextInput from "../TextInput";
+import ToolPopover from "../ToolPopover";
+import { PopoverInfoType, ToolPopoverToolsType } from "../ToolPopover/type";
 import { Toolbar, ToolbarClick } from "../Toolbar";
 import styles from "./index.module.scss";
 import { ComposerProps } from "./types";
 
-const pixelRatio = 750 / Taro.getSystemInfoSync().windowWidth;
+const windowWidth = Taro.getSystemInfoSync().windowWidth;
+
+const windowHeight = Taro.getSystemInfoSync().windowHeight;
+
+const pixelRatio = 750 / windowWidth;
 
 export type ChatProps = ComposerProps &
   ConfigContextType & {
     messages: Messages;
-    disabled?: boolean
+    disabled?: boolean;
+    toolPopoverTools?: ToolPopoverToolsType;
+    toolPopover?: JSX.Element;
+    excludePopoverTool?: (MessageType | undefined)[];
   };
 
 export interface ChatRef {
   scrollToBottom: () => void;
   scrollTo: (id: string) => void;
+  closeToolPopover: () => void;
 }
 
 const scrollToBottomAnchorId = "scrollBottomAnchor";
@@ -57,6 +67,9 @@ const Chat = React.forwardRef<ChatRef, ChatProps>((props, ref) => {
     renderAfterMessageContent,
     onRefresherRefresh,
     disabled = false,
+    toolPopoverTools,
+    toolPopover,
+    excludePopoverTool,
   } = props;
 
   const [hasToolbar, setHasToolbar] = useState(false);
@@ -83,9 +96,9 @@ const Chat = React.forwardRef<ChatRef, ChatProps>((props, ref) => {
     });
   }, []);
 
-  const messageIntoView = useCallback((id:string = scrollToBottomAnchorId) => {
+  const messageIntoView = useCallback((id: string = scrollToBottomAnchorId) => {
     requestAnimationFrame(() => {
-      console.log('scrollToId:', id)
+      console.log("scrollToId:", id);
       setScrollToView(id);
     });
   }, []);
@@ -102,6 +115,7 @@ const Chat = React.forwardRef<ChatRef, ChatProps>((props, ref) => {
   useImperativeHandle(ref, () => ({
     scrollToBottom: messageIntoBottom,
     scrollTo: messageIntoView,
+    closeToolPopover: handleCloseToolPopover,
   }));
 
   useEffect(() => {
@@ -143,13 +157,13 @@ const Chat = React.forwardRef<ChatRef, ChatProps>((props, ref) => {
     resetValue: (callback: (value: string) => void) => void;
   }>();
 
-    const onSubmit = useCallback(() => {
-      textInputRef.current?.resetValue(async (value) => {
-        console.log("value", value)
-        if(!value.trim()) return
-        await onSend("Text", value)
-      })
-    }, [onSend])
+  const onSubmit = useCallback(() => {
+    textInputRef.current?.resetValue(async (value) => {
+      console.log("value", value);
+      if (!value.trim()) return;
+      await onSend("Text", value);
+    });
+  }, [onSend]);
 
   const handleImageInput = useCallback(async () => {
     try {
@@ -204,12 +218,39 @@ const Chat = React.forwardRef<ChatRef, ChatProps>((props, ref) => {
     },
     [customMessageContent]
   );
+  const [popoverInfo, setPopoverInfo] = useState<PopoverInfoType>();
+  // 长按消息打开工具气泡弹窗
+  const handleLongPressMessage = useCallback(
+    (message: MessageProps) => {
+      //根据消息类型判断是否有权打开弹窗
+      if (!excludePopoverTool || excludePopoverTool.includes(message.type))
+        return;
+        
+      Taro.createSelectorQuery()
+        .select("#" + message.id)
+        .boundingClientRect(function (
+          rect: Taro.NodesRef.BoundingClientRectCallbackResult
+        ) {
+          setPopoverInfo({ visible: true, rect, message });
+          console.log("rect", rect);
+        })
+        .exec();
+    },
+    [excludePopoverTool]
+  );
+
+  const handleCloseToolPopover = useCallback(() => {
+    setPopoverInfo(undefined);
+  }, []);
 
   return (
     <ConfigProvider locale={locale} locales={locales}>
       <View
         className={styles["chat-widget"]}
         style={{ paddingBottom: `${keyboardHeight}rpx` }}
+        onClick={() => {
+          setPopoverInfo(undefined);
+        }}
       >
         <View className={styles["chat-message-box"]}>
           <ScrollView
@@ -227,11 +268,11 @@ const Chat = React.forwardRef<ChatRef, ChatProps>((props, ref) => {
                 return (
                   <View
                     key={item.id}
-                    id={item.id}
                     className={`${styles["chat-message-wrap"]} ${
                       item.position === "right" &&
                       styles["chat-message-wrap-right"]
                     }`}
+                    onLongPress={() => handleLongPressMessage(item)}
                   >
                     <Message
                       renderAfterMessageContent={renderAfterMessageContent}
@@ -295,6 +336,12 @@ const Chat = React.forwardRef<ChatRef, ChatProps>((props, ref) => {
           </View>
           {footer}
         </View>
+        <ToolPopover
+          popoverInfo={popoverInfo}
+          onClose={handleCloseToolPopover}
+          toolPopoverTools={toolPopoverTools}
+          toolPopover={toolPopover}
+        />
       </View>
     </ConfigProvider>
   );

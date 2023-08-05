@@ -75,6 +75,7 @@ const TextInput = forwardRef((props: Props, ref) => {
         onBlur={handleBlur}
         adjustPosition={false}
         maxlength={-1}
+        focus
         disabled={disabled}
       />
       <ScrollView className={styles["chat-input-wrap_scroll"]} scrollTop={scrollTop} scrollWithAnimation scrollY>
@@ -90,12 +91,13 @@ const TextInput = forwardRef((props: Props, ref) => {
         autoHeight
         maxlength={-1}
         disabled={disabled}
+        showConfirmBar={false}
         id="scroll-input-wrap"
       />
       </ScrollView>
 </>
     );
-  }, [handleBlur, handleConfirm, handleFocus, handleInput, handleTextarea, scrollTop, value]);
+  }, [disabled, handleBlur, handleConfirm, handleFocus, handleInput, handleTextarea, scrollTop, value]);
 })
 
 export default TextInput

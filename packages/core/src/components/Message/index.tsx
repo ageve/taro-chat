@@ -36,7 +36,7 @@ export default function Message(props: MessageProps) {
           {avatar && <Avatar src={avatar} url={user.url} />}
         </View>
         <View className={styles["chat-message-space"]} />
-        <View className={styles["chat-message-bubble-wrap"]}>
+        <View className={styles["chat-message-bubble-wrap"]} >
           {name && (
             <Text
               className={`${styles["chat-message-name"]}  ${
@@ -46,7 +46,7 @@ export default function Message(props: MessageProps) {
               {name}
             </Text>
           )}
-          <View>{renderMessageContent(msg)}</View>
+          <View id={msg.id}>{renderMessageContent(msg)}</View>
           <>{renderAfterMessageContent(msg)}</>
         </View>
       </View>

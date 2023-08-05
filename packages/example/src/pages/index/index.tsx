@@ -5,16 +5,19 @@ import Chat, {
   Bubble,
   ChatRef,
   MessageOptionProps,
+  ToolPopoverToolsType,
   useMessages,
 } from "taro-chat";
 import "taro-chat/dist/style.css";
+import icon1 from "../../assets/images/icon-file-doc.png";
 import "./index.scss";
 
 const sleep = (s = 1000) => new Promise((r) => setTimeout(r, s));
 
 const initMessage: MessageOptionProps[] = [
   {
-    content: "短语-4",
+    content:
+      "短语-4s是力度看风景是力度看风景是力度看风景是力度看风景是力度看风景是力度看风景是力度看风景是力度看风景是力度看风景是力度看风景是力度看风景是力度看风景是力度看上来看的风景是力度看风景",
     type: "Text",
     position: "left",
     status: "sent",
@@ -174,6 +177,65 @@ const newMessage: MessageOptionProps[] = [
   },
 ];
 
+const initToolPopoverTools: ToolPopoverToolsType = [
+  {
+    includeMessageType: "Text",
+    icon: icon1,
+    name: "测试",
+    onClick: (message: MessageOptionProps) => {
+      console.log("message-click", message);
+    },
+  },
+  {
+    includeMessageType: "Text",
+    icon: icon1,
+    name: "测试",
+    onClick: (message: MessageOptionProps) => {
+      console.log("message-click", message);
+    },
+  },
+  {
+    includeMessageType: "Text",
+    icon: icon1,
+    name: "测试下",
+    onClick: (message: MessageOptionProps) => {
+      console.log("message-click", message);
+    },
+  },
+  {
+    includeMessageType: "Text",
+    icon: icon1,
+    name: "测试",
+    onClick: (message: MessageOptionProps) => {
+      console.log("message-click", message);
+    },
+  },
+  {
+    includeMessageType: "Text",
+    icon: icon1,
+    name: "测试",
+    onClick: (message: MessageOptionProps) => {
+      console.log("message-click", message);
+    },
+  },
+  {
+    includeMessageType: "Text",
+    icon: icon1,
+    name: "测试",
+    onClick: (message: MessageOptionProps) => {
+      console.log("message-click", message);
+    },
+  },
+  {
+    includeMessageType: "Text",
+    icon: icon1,
+    name: "测试",
+    onClick: (message: MessageOptionProps) => {
+      console.log("message-click", message);
+    },
+  },
+];
+
 export default function Index() {
   useLoad(() => {
     console.log("Page loaded.");
@@ -181,24 +243,25 @@ export default function Index() {
 
   const { messages, appendMsg, appendMsgs, prependMsgs } = useMessages();
   const chatRef = useRef<ChatRef>(null);
-  const startId = useRef('')
+  const startId = useRef("");
   const newPage = useCallback(async () => {
-    await sleep()
+    await sleep();
     const message = await prependMsgs(newMessage);
-    startId.current = message[newMessage.length].id
+    startId.current = message[newMessage.length].id;
     Taro.nextTick(() => {
-      chatRef?.current?.scrollTo(message[newMessage.length - 2 ].id);
-    })
-    return message
+      chatRef?.current?.scrollTo(message[newMessage.length - 2].id);
+    });
+    return message;
   }, []);
 
   useEffect(() => {
     appendMsgs(initMessage).then(() => {
-      chatRef.current?.scrollToBottom()
-    })
-  }, [])
-  const [disabled, setDisabled] = useState(false)
-
+      chatRef.current?.scrollToBottom();
+    });
+  }, []);
+  const [disabled, setDisabled] = useState(false);
+  const [toolPopoverTools] = useState(initToolPopoverTools)
+  const [excludePopoverTool] = useState(['File', "Link", "Image"])
   return (
     <View className="chat-room">
       <Chat
@@ -220,11 +283,11 @@ export default function Index() {
           });
           Taro.nextTick(() => {
             chatRef?.current?.scrollToBottom();
-          })
-          setDisabled(true)
+          });
+          setDisabled(true);
           setTimeout(() => {
-            setDisabled(false)
-          }, 3000)
+            setDisabled(false);
+          }, 3000);
         }}
         customMessageContent={(data) => {
           if (data.content === "短语3") {
@@ -244,7 +307,7 @@ export default function Index() {
           return null;
         }}
         onRefresherRefresh={async () => {
-          return newPage()
+          return newPage();
         }}
         renderAfterMessageContent={(msg) => {
           return (
@@ -258,6 +321,8 @@ export default function Index() {
         showRightAction={false}
         floatAction={<View>转发</View>}
         footer={<View>footer</View>}
+        toolPopoverTools={toolPopoverTools}
+        excludePopoverTool={excludePopoverTool}
       />
     </View>
   );

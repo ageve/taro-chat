@@ -1,4 +1,5 @@
 import { MessageOptionProps, MessageProps } from "../components/Message/types";
+import { ToolPopoverToolsType } from "../components/ToolPopover/type";
 
 export type FileType =
   /** doc 格式 */
@@ -38,3 +39,5 @@ export type DownloadFileSuccess = {
 export type Messages = MessageProps[];
 
 export type MessagesOption = MessageOptionProps[];
+
+export type ToolPopoverTools = ToolPopoverToolsType;
