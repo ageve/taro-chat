@@ -9,6 +9,7 @@ import React, {
   useMemo,
 } from "react";
 import IconFileDoc from "../../assets/images/icon-file-doc.png";
+import IconFileUnknown from "../../assets/images/icon-file-edit.png";
 import IconFilePdf from "../../assets/images/icon-file-pdf.png";
 import IconFilePpt from "../../assets/images/icon-file-ppt.png";
 import IconFileXls from "../../assets/images/icon-file-xls.png";
@@ -73,7 +74,7 @@ export default function Bubble({
       case "pptx":
         return IconFilePpt;
       default:
-        return null;
+        return IconFileUnknown;
     }
   }, [message.extra]);
 

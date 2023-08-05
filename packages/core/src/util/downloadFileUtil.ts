@@ -14,7 +14,7 @@ async function downloadFileUtil({
 }: Params): Promise<DownloadFileSuccess> {
   const result = await Taro.downloadFile({
     url,
-    filePath: `${Taro.env.USER_DATA_PATH}/${fileName}.${fileType}`,
+    filePath: `${Taro.env.USER_DATA_PATH}/${fileName}`,
   });
 
   if (result.statusCode === 200) {

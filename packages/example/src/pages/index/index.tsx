@@ -179,7 +179,7 @@ const newMessage: MessageOptionProps[] = [
 
 const initToolPopoverTools: ToolPopoverToolsType = [
   {
-    includeMessageType: "Text",
+    includeMessageType: ["Text"],
     icon: icon1,
     name: "测试",
     onClick: (message: MessageOptionProps) => {
@@ -187,7 +187,7 @@ const initToolPopoverTools: ToolPopoverToolsType = [
     },
   },
   {
-    includeMessageType: "Text",
+    includeMessageType: ["Text"],
     icon: icon1,
     name: "测试",
     onClick: (message: MessageOptionProps) => {
@@ -195,7 +195,7 @@ const initToolPopoverTools: ToolPopoverToolsType = [
     },
   },
   {
-    includeMessageType: "Text",
+    includeMessageType: ["Text"],
     icon: icon1,
     name: "测试下",
     onClick: (message: MessageOptionProps) => {
@@ -203,7 +203,7 @@ const initToolPopoverTools: ToolPopoverToolsType = [
     },
   },
   {
-    includeMessageType: "Text",
+    includeMessageType: ["Text"],
     icon: icon1,
     name: "测试",
     onClick: (message: MessageOptionProps) => {
@@ -211,7 +211,7 @@ const initToolPopoverTools: ToolPopoverToolsType = [
     },
   },
   {
-    includeMessageType: "Text",
+    includeMessageType: ["Text"],
     icon: icon1,
     name: "测试",
     onClick: (message: MessageOptionProps) => {
@@ -219,7 +219,7 @@ const initToolPopoverTools: ToolPopoverToolsType = [
     },
   },
   {
-    includeMessageType: "Text",
+    includeMessageType: ["Text"],
     icon: icon1,
     name: "测试",
     onClick: (message: MessageOptionProps) => {
@@ -227,7 +227,7 @@ const initToolPopoverTools: ToolPopoverToolsType = [
     },
   },
   {
-    includeMessageType: "Text",
+    includeMessageType: ["Text"],
     icon: icon1,
     name: "测试",
     onClick: (message: MessageOptionProps) => {
@@ -260,14 +260,21 @@ export default function Index() {
     });
   }, []);
   const [disabled, setDisabled] = useState(false);
-  const [toolPopoverTools] = useState(initToolPopoverTools)
-  const [excludePopoverTool] = useState(['File', "Link", "Image"])
+  const [toolPopoverTools] = useState(initToolPopoverTools);
+  const [excludePopoverTool] = useState(["File", "Link", "Image"]);
   return (
     <View className="chat-room">
       <Chat
         ref={chatRef}
         messages={messages}
         disabled={disabled}
+        onMessageLongPress={(ctx) => {
+          if (ctx.type === "") {
+            ctx.showPopover();
+          } else {
+            ctx.openPreview(ctx);
+          }
+        }}
         onSend={async (type, content) => {
           console.log(
             "%c bug",
@@ -322,6 +329,7 @@ export default function Index() {
         floatAction={<View>转发</View>}
         footer={<View>footer</View>}
         toolPopoverTools={toolPopoverTools}
+        // @ts-ignore
         excludePopoverTool={excludePopoverTool}
       />
     </View>
