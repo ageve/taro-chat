@@ -161,7 +161,7 @@ const newMessage: MessageOptionProps[] = [
     content:
       "https://hugofsa.yocdev.com/hugo/9318ce75-026a-4c9b-b586-b766c5ec67be.pdf",
     type: "File",
-    position: "right",
+    position: "left",
     status: "sent",
     extra: {
       fileName: "高赖氨酸牛奶.pdf",

@@ -223,7 +223,7 @@ const Chat = React.forwardRef<ChatRef, ChatProps>((props, ref) => {
   const handleLongPressMessage = useCallback(
     (message: MessageProps) => {
       //根据消息类型判断是否有权打开弹窗
-      if (!excludePopoverTool || excludePopoverTool.includes(message.type))
+      if (excludePopoverTool && excludePopoverTool.includes(message.type))
         return;
         
       Taro.createSelectorQuery()
