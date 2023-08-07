@@ -38,19 +38,19 @@ const TextInput = forwardRef((props: Props, ref) => {
   const handleInput: CommonEventFunction<TextareaProps.onInputEventDetail> =
     useCallback(
       (event) => {
-        if (event.detail.value.length === event.detail.cursor) {
-          Taro.nextTick(() => {
-            query
-              .select("#scroll-input-wrap")
-              .fields({ node: true, size: true })
-              .exec((res) => {
-                setScrollTop(res[0].height * pixelRatio);
-              });
-          });
-        }
+        // if (event.detail.value.length === event.detail.cursor) {
+        //   Taro.nextTick(() => {
+        //     query
+        //       .select("#scroll-input-wrap")
+        //       .fields({ node: true, size: true })
+        //       .exec((res) => {
+        //         setScrollTop(res[0].height * pixelRatio);
+        //       });
+        //   });
+        // }
         setValue(event.detail.value);
       },
-      [query]
+      []
     );
 
   const handleTextarea: CommonEventFunction<TextareaProps.onInputEventDetail> =
