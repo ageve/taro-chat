@@ -19,9 +19,9 @@
   align-items: center;
   overflow: hidden;
   padding: 14px 14px;
-  @include respond-to('pc'){
-    border-radius: 8Px;
-    padding: 6Px 8Px;
+  @include respond-to("pc") {
+    border-radius: 8px;
+    padding: 6px 8px;
   }
   &-text {
     min-width: 40px;
@@ -43,6 +43,7 @@
       width: 60px;
       height: 60px;
       margin-right: 20px;
+      flex-shrink: 0;
     }
     &-content {
       display: flex;
@@ -59,36 +60,33 @@
         font-size: 22px;
       }
     }
-    
   }
   &-no-padding {
     padding: 0;
   }
-  @include respond-to('pc'){
-    font-size: 14Px;
+  @include respond-to("pc") {
+    font-size: 14px;
     &-text {
-      min-width: 40Px;
+      min-width: 40px;
     }
     &-image {
-      width: 300Px;
+      width: 300px;
     }
     &-file {
-
       &-icon {
-        width: 40Px;
-        height: 40Px;
-        margin-right: 10Px;
+        width: 40px;
+        height: 40px;
+        margin-right: 10px;
       }
       &-content {
         &-name {
-          font-size: 17Px;
+          font-size: 17px;
         }
         &-size {
           color: #656565;
-          font-size: 17Px;
+          font-size: 17px;
         }
       }
-      
     }
   }
 }

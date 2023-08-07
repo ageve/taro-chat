@@ -41,13 +41,22 @@ export default function Bubble({
    * @description 点击文件预览
    */
   const handleFileClick = useCallback(async () => {
-    // TODO: 具体实现
-    downloadFileForOpen({
-      url: message.content,
-      fileName: (message.extra as MessageFileExtra).fileName,
-      // 返回，或者判断文件后缀
-      fileType: (message.extra as MessageFileExtra).fileType,
-    });
+    try {
+      downloadFileForOpen({
+        url: message.content,
+        fileName: (message.extra as MessageFileExtra).fileName,
+        // 返回，或者判断文件后缀
+        fileType: (message.extra as MessageFileExtra).fileType,
+      });
+    } catch (error) {
+      console.log(
+        "%c preview failed",
+        "background: #69c0ff; color: white; padding: 4px",
+        error
+      );
+      // TODO: 预览失败时提供
+      Taro.showToast({ title: "文件暂不支持预览", icon: "none" });
+    }
   }, [message.content, message.extra]);
 
   const bindProps = useCallback(
