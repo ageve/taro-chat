@@ -8,7 +8,9 @@
   }
 }
 
+
 .chat-bubble {
+  
   max-width: 70vw;
   height: auto;
   height: fit-content;
@@ -19,9 +21,10 @@
   align-items: center;
   overflow: hidden;
   padding: 14px 14px;
-  @include respond-to("pc") {
-    border-radius: 8px;
-    padding: 6px 8px;
+
+  @include respond-to('pc'){
+    border-radius: 8Px;
+    padding: 6Px 8Px;
   }
   &-text {
     min-width: 40px;
@@ -65,26 +68,27 @@
     padding: 0;
   }
   @include respond-to("pc") {
-    font-size: 14px;
+    font-size: 14Px;
+
     &-text {
-      min-width: 40px;
+      min-width: 40Px;
     }
     &-image {
-      width: 300px;
+      width: 300Px;
     }
     &-file {
       &-icon {
-        width: 40px;
-        height: 40px;
-        margin-right: 10px;
+        width: 40Px;
+        height: 40Px;
+        margin-right: 10Px;
       }
       &-content {
         &-name {
-          font-size: 17px;
+          font-size: 17Px;
         }
         &-size {
           color: #656565;
-          font-size: 17px;
+          font-size: 17Px;
         }
       }
     }
