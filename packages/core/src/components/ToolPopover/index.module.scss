@@ -1,135 +1,152 @@
 $triangle-size: 12px;
-$triangle-pc-size: 8Px;
+$triangle-pc-size: 6Px;
 
 .triangle {
-  width: 0;
-  height: 0;
-  border-left: $triangle-size solid transparent;
-  border-right: $triangle-size solid transparent;
-  border-bottom: $triangle-size solid #424242;
-  position: absolute;
-  @include respond-to("pc") {
-    border-left: $triangle-pc-size solid transparent;
-    border-right: $triangle-pc-size solid transparent;
-    border-bottom: $triangle-pc-size solid #424242;
-  }
+    width: 0;
+    height: 0;
+    border-left: $triangle-size solid transparent;
+    border-right: $triangle-size solid transparent;
+    border-bottom: $triangle-size solid #424242;
+    position: absolute;
+
+    @include respond-to("pc") {
+        border-left: $triangle-pc-size solid transparent;
+        border-right: $triangle-pc-size solid transparent;
+        border-bottom: $triangle-pc-size solid #424242;
+    }
 }
 
 .tool-popover-wrap {
-  width: fit-content;
-  height: fit-content;
-  position: fixed;
-  transition-property: width, height, opacity;
-  transition-duration: 0.1s;
-  opacity: 0;
-  background-color: #424242;
-  border-radius: 10px;
-  box-shadow: 0px 2.32px 13.64px 0px rgba(149, 149, 149, 0.5);
-  padding: 20px 15px;
-  box-sizing: border-box;
-  &_top-left-triangle {
-    @extend .triangle;
-    bottom: -$triangle-size;
-    left: $triangle-size;
-    transform: rotate(180deg);
-  }
-  &_top-right-triangle {
-    @extend .triangle;
-    bottom: -$triangle-size;
-    right: $triangle-size;
-    transform: rotate(180deg);
-  }
-  &_bottom-left-triangle {
-    @extend .triangle;
-    top: -$triangle-size;
-    left: $triangle-size;
-  }
-  &_bottom-right-triangle {
-    @extend .triangle;
-    top: -$triangle-size;
-    right: $triangle-size;
-  }
-  &_popover {
-    width: 400px;
-    height: 180px;
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    grid-template-rows: repeat(2, 1fr);
-    justify-items: center;
-    align-items: center;
-    &-item {
-      display: flex;
-      flex-flow: column;
-      justify-content: center;
-      align-items: center;
-      width: fit-content;
-      height: fit-content;
-      &-img {
-        width: 34px;
-        height: 38px;
-        margin-bottom: 6px;
-      }
-      &-name {
-        font-size: 18px;
-        color: #fff;
-      }
-    }
-  }
+    width: fit-content;
+    height: fit-content;
+    position: fixed;
+    transition-property: width, height, opacity;
+    transition-duration: 0.1s;
+    opacity: 0;
+    background-color: #424242;
+    border-radius: 10px;
+    box-shadow: 0px 2.32px 13.64px 0px rgba(149, 149, 149, 0.5);
+    padding: 15px 15px 0;
+    box-sizing: border-box;
 
-  @include respond-to("pc") {
-    border-radius: 10Px;
-    padding: 10Px;
-    box-shadow: 0Px 2.32Px 13.64Px 0Px rgba(149, 149, 149, 0.5);
     &_top-left-triangle {
-      @extend .triangle;
-      bottom: -$triangle-pc-size;
-      left: $triangle-pc-size;
-      transform: rotate(180deg);
+        @extend .triangle;
+        bottom: -$triangle-size;
+        left: $triangle-size;
+        transform: rotate(180deg);
     }
+
     &_top-right-triangle {
-      @extend .triangle;
-      bottom: -$triangle-pc-size;
-      right: $triangle-pc-size;
-      transform: rotate(180deg);
+        @extend .triangle;
+        bottom: -$triangle-size;
+        right: $triangle-size;
+        transform: rotate(180deg);
     }
+
     &_bottom-left-triangle {
-      @extend .triangle;
-      top: -$triangle-pc-size;
-      left: $triangle-pc-size;
+        @extend .triangle;
+        top: -$triangle-size;
+        left: $triangle-size;
     }
+
     &_bottom-right-triangle {
-      @extend .triangle;
-      top: -$triangle-pc-size;
-      right: $triangle-pc-size;
+        @extend .triangle;
+        top: -$triangle-size;
+        right: $triangle-size;
     }
+
     &_popover {
-      width: 200Px;
-      height: 90Px;
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      grid-template-rows: repeat(2, 1fr);
-      justify-items: center;
-      align-items: center;
-      &-item {
-        display: flex;
-        flex-flow: column;
-        justify-content: center;
-        align-items: center;
-        width: fit-content;
+        max-width: 400px;
         height: fit-content;
-        &-img {
-          width: 21Px;
-          height: 22.5Px;
-          margin-bottom: 2.5Px;
+        display: grid;
+        // grid-template-columns: repeat(5, 1fr);
+        // grid-template-rows: repeat(2, 1fr);
+        justify-items: center;
+        align-items: center;
+
+        &-item {
+            display: flex;
+            flex-flow: column;
+            justify-content: center;
+            align-items: center;
+            width: 60px;
+            height: fit-content;
+            margin-bottom: 16px;
+
+            &-img {
+                width: 34px;
+                height: 38px;
+                margin-bottom: 6px;
+            }
+
+            &-name {
+                font-size: 18px;
+                color: #fff;
+            }
         }
-        &-name {
-          font-size: 11Px;
-          color: #fff;
-          white-space: nowrap;
-          text-overflow: ellipsis;
-          overflow: hidden;
-        }
-      }
     }
-  }
+
+    @include respond-to("pc") {
+        border-radius: 10Px;
+        padding: 15Px 10Px 0;
+        box-shadow: 0Px 2.32Px 13.64Px 0Px rgba(149, 149, 149, 0.5);
+
+        &_top-left-triangle {
+            @extend .triangle;
+            bottom: -$triangle-pc-size;
+            left: calc($triangle-pc-size + 6Px);
+            transform: rotate(180deg);
+        }
+
+        &_top-right-triangle {
+            @extend .triangle;
+            bottom: -$triangle-pc-size;
+            right: calc($triangle-pc-size + 6Px);
+            transform: rotate(180deg);
+        }
+
+        &_bottom-left-triangle {
+            @extend .triangle;
+            top: -$triangle-pc-size;
+            left: calc($triangle-pc-size + 6Px);
+        }
+
+        &_bottom-right-triangle {
+            @extend .triangle;
+            top: -$triangle-pc-size;
+            right: calc($triangle-pc-size + 6Px);
+        }
+
+        &_popover {
+            max-width: 200Px;
+            height: fit-content;
+            display: grid;
+            justify-items: center;
+            align-items: center;
+
+            &-item {
+                display: flex;
+                flex-flow: column;
+                justify-content: center;
+                align-items: center;
+                width: fit-content;
+                height: fit-content;
+                margin-bottom: 12Px;
+
+                &-img {
+                    width: 21Px;
+                    height: 22.5Px;
+                    margin-bottom: 2.5Px;
+                }
+
+                &-name {
+                    font-size: 11Px;
+                    color: #fff;
+                    white-space: nowrap;
+                    text-overflow: ellipsis;
+                    overflow: hidden;
+                }
+            }
+        }
+    }
 }

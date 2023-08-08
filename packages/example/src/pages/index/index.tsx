@@ -9,7 +9,6 @@ import Chat, {
   useMessages,
 } from "taro-chat";
 import "taro-chat/dist/style.css";
-import icon1 from "../../assets/images/icon-file-doc.png";
 import "./index.scss";
 
 const sleep = (s = 1000) => new Promise((r) => setTimeout(r, s));
@@ -178,62 +177,62 @@ const newMessage: MessageOptionProps[] = [
 ];
 
 const initToolPopoverTools: ToolPopoverToolsType = [
-  {
-    includeMessageType: ["Text"],
-    icon: icon1,
-    name: "测试",
-    onClick: (message: MessageOptionProps) => {
-      console.log("message-click", message);
-    },
-  },
-  {
-    includeMessageType: ["Text"],
-    icon: icon1,
-    name: "测试",
-    onClick: (message: MessageOptionProps) => {
-      console.log("message-click", message);
-    },
-  },
-  {
-    includeMessageType: ["Text"],
-    icon: icon1,
-    name: "测试下",
-    onClick: (message: MessageOptionProps) => {
-      console.log("message-click", message);
-    },
-  },
-  {
-    includeMessageType: ["Text"],
-    icon: icon1,
-    name: "测试",
-    onClick: (message: MessageOptionProps) => {
-      console.log("message-click", message);
-    },
-  },
-  {
-    includeMessageType: ["Text"],
-    icon: icon1,
-    name: "测试",
-    onClick: (message: MessageOptionProps) => {
-      console.log("message-click", message);
-    },
-  },
-  {
-    includeMessageType: ["Text"],
-    icon: icon1,
-    name: "测试",
-    onClick: (message: MessageOptionProps) => {
-      console.log("message-click", message);
-    },
-  },
-  {
-    includeMessageType: ["Text"],
-    icon: icon1,
-    name: "测试",
-    onClick: (message: MessageOptionProps) => {
-      console.log("message-click", message);
-    },
-  },
+  // {
+  //   includeMessageType: ["Text"],
+  //   icon: icon1,
+  //   name: "测试",
+  //   onClick: (message: MessageOptionProps) => {
+  //     console.log("message-click", message);
+  //   },
+  // },
+  // {
+  //   includeMessageType: ["Text"],
+  //   icon: icon1,
+  //   name: "测试",
+  //   onClick: (message: MessageOptionProps) => {
+  //     console.log("message-click", message);
+  //   },
+  // },
+  // {
+  //   includeMessageType: ["Text"],
+  //   icon: icon1,
+  //   name: "测试下",
+  //   onClick: (message: MessageOptionProps) => {
+  //     console.log("message-click", message);
+  //   },
+  // },
+  // {
+  //   includeMessageType: ["Text"],
+  //   icon: icon1,
+  //   name: "测试",
+  //   onClick: (message: MessageOptionProps) => {
+  //     console.log("message-click", message);
+  //   },
+  // },
+  // {
+  //   includeMessageType: ["Text"],
+  //   icon: icon1,
+  //   name: "测试",
+  //   onClick: (message: MessageOptionProps) => {
+  //     console.log("message-click", message);
+  //   },
+  // },
+  // {
+  //   includeMessageType: ["Text"],
+  //   icon: icon1,
+  //   name: "测试",
+  //   onClick: (message: MessageOptionProps) => {
+  //     console.log("message-click", message);
+  //   },
+  // },
+  // {
+  //   includeMessageType: ["Text"],
+  //   icon: icon1,
+  //   name: "测试",
+  //   onClick: (message: MessageOptionProps) => {
+  //     console.log("message-click", message);
+  //   },
+  // },
 ];
 
 export default function Index() {

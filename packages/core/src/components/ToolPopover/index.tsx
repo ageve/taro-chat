@@ -1,6 +1,6 @@
 import { Image, Text, View } from "@tarojs/components";
 import Taro from "@tarojs/taro";
-import React, { FC, useCallback, useEffect, useState } from "react";
+import React, { FC, useCallback, useEffect, useMemo, useState } from "react";
 import copyImg from "../../assets/images/copy.png";
 import styles from "./index.module.scss";
 import { ToolPopoverProps } from "./type";
@@ -79,6 +79,19 @@ const ToolPopover: FC<ToolPopoverProps> = (props) => {
       },
     });
   }, []);
+
+  const tools = useMemo(() => {
+    if (toolPopoverTools && popoverInfo) {
+      return toolPopoverTools
+        .filter((item) =>
+          item.includeMessageType.includes(popoverInfo.message.type || "Text")
+        )
+        .filter((item) =>
+          item.includeMessageType.includes(popoverInfo.message.type || "Text")
+        );
+    }
+    return [];
+  }, [popoverInfo, toolPopoverTools]);
   return (
     <View
       className={styles["tool-popover-wrap"]}
@@ -90,61 +103,58 @@ const ToolPopover: FC<ToolPopoverProps> = (props) => {
         display: popoverVisible ? "block" : "none",
       }}
     >
-        {/* 自定义工具 toolPopover render 或者传入工具列表数据 toolPopoverTools，在现有模版上渲染工具列表 */}
+      {/* 自定义工具 toolPopover render 或者传入工具列表数据 toolPopoverTools，在现有模版上渲染工具列表 */}
       {toolPopover ? (
         toolPopover
       ) : (
         <View
           className={styles["tool-popover-wrap_popover"]}
+          style={{
+            gridTemplateColumns: `repeat(${tools.length + 1 > 5 ? 5 : tools.length + 1}, 1fr)`,
+            gridTemplateAreas: `repeat(${Math.ceil((tools.length + 1) / 5)}, 1fr)`,
+          }}
           id="tool-popover-wrap_popover"
           onClick={(e) => {
             e.stopPropagation();
           }}
         >
-          {popoverInfo?.message.type === 'Text' && <View
-            className={styles["tool-popover-wrap_popover-item"]}
-            onClick={() => {
-              copyToClipboard(popoverInfo?.message.content);
-              onClose && onClose();
-            }}
-          >
-            <Image
-              src={copyImg}
-              className={styles["tool-popover-wrap_popover-item-img"]}
-            ></Image>
-            <Text className={styles["tool-popover-wrap_popover-item-name"]}>
-              复制
-            </Text>
-          </View>}
+          {popoverInfo?.message.type === "Text" && (
+            <View
+              className={styles["tool-popover-wrap_popover-item"]}
+              onClick={() => {
+                copyToClipboard(popoverInfo?.message.content);
+                onClose && onClose();
+              }}
+            >
+              <Image
+                src={copyImg}
+                className={styles["tool-popover-wrap_popover-item-img"]}
+              ></Image>
+              <Text className={styles["tool-popover-wrap_popover-item-name"]}>
+                复制
+              </Text>
+            </View>
+          )}
           {/* 外部自定义工具列表 */}
-          {toolPopoverTools &&
-            popoverInfo &&
-            toolPopoverTools
-              .filter((item) =>
-                item.includeMessageType.includes(
-                  popoverInfo.message.type || "Text"
-                )
-              )
-              .map((item, key) => (
-                <View
-                  key={key}
-                  className={styles["tool-popover-wrap_popover-item"]}
-                  onClick={() => {
-                    item.onClick && item.onClick(popoverInfo.message);
-                    onClose && onClose();
-                  }}
-                >
-                  <Image
-                    src={item.icon}
-                    className={styles["tool-popover-wrap_popover-item-img"]}
-                  ></Image>
-                  <Text
-                    className={styles["tool-popover-wrap_popover-item-name"]}
-                  >
-                    {item.name}
-                  </Text>
-                </View>
-              ))}
+          {popoverInfo &&
+            tools.map((item, key) => (
+              <View
+                key={key}
+                className={styles["tool-popover-wrap_popover-item"]}
+                onClick={() => {
+                  item.onClick && item.onClick(popoverInfo.message);
+                  onClose && onClose();
+                }}
+              >
+                <Image
+                  src={item.icon}
+                  className={styles["tool-popover-wrap_popover-item-img"]}
+                ></Image>
+                <Text className={styles["tool-popover-wrap_popover-item-name"]}>
+                  {item.name}
+                </Text>
+              </View>
+            ))}
         </View>
       )}
       <View

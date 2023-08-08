@@ -19,23 +19,22 @@
     width: 100%;
     // flex-grow: 1;
     // height: 120px;
-    flex: 1;
-    min-height: 60px;
-    // max-height: 140px;
-    position: relative;
-    width: auto;
-    background-color: white;
-    outline: hidden;
-    overflow: hidden;
-    border-radius: 10px;
-    padding: 0 15px;
+    
     &_textarea{
+      flex: 1;
       min-height: 30px;
+      // max-height: 140px;
+      position: relative;
+      width: auto;
+      background-color: white;
+      outline: hidden;
+      overflow: hidden;
+      border-radius: 10px;
+      padding: 15px;
       width: 100%;
       line-height: 30px;
       font-size: 26px;
-      margin-top: 15px;
-      display: block;
+      // margin-top: 15px;
     }
   
     @include respond-to('pc'){

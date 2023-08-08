@@ -1,9 +1,8 @@
 import {
   CommonEventFunction,
   InputProps,
-  ScrollView,
   Textarea,
-  TextareaProps,
+  TextareaProps
 } from "@tarojs/components";
 import Taro from "@tarojs/taro";
 import React, {
@@ -38,19 +37,19 @@ const TextInput = forwardRef((props: Props, ref) => {
   const handleInput: CommonEventFunction<TextareaProps.onInputEventDetail> =
     useCallback(
       (event) => {
-        if (event.detail.value.length === event.detail.cursor) {
-          Taro.nextTick(() => {
-            query
-              .select("#scroll-input-wrap")
-              .fields({ node: true, size: true })
-              .exec((res) => {
-                setScrollTop(res[0].height * pixelRatio);
-              });
-          });
-        }
+        // if (event.detail.value.length === event.detail.cursor) {
+        //   Taro.nextTick(() => {
+        //     query
+        //       .select("#scroll-input-wrap")
+        //       .fields({ node: true, size: true })
+        //       .exec((res) => {
+        //         setScrollTop(res[0].height * pixelRatio);
+        //       });
+        //   });
+        // }
         setValue(event.detail.value);
       },
-      [query]
+      []
     );
 
   const handleTextarea: CommonEventFunction<TextareaProps.onInputEventDetail> =
@@ -103,40 +102,34 @@ const TextInput = forwardRef((props: Props, ref) => {
             disabled={disabled}
           />
         ) : (
-          <ScrollView
-            className={styles["chat-input-wrap_scroll"]}
-            scrollTop={scrollTop}
-            scrollWithAnimation
-            scrollY
-          >
+          // <ScrollView
+          //   className={styles["chat-input-wrap_scroll"]}
+          //   scrollTop={scrollTop}
+          //   scrollWithAnimation
+          //   scrollY
+          // >
+          // <View className={styles["chat-input-wrap_scroll"]}>
             <Textarea
               value={value ?? ""}
               className={styles["chat-input-wrap_scroll_textarea"]}
+              style={platform === 'ios' ? {padding: `5rpx 15rpx 0rpx`} : {}}
               onInput={handleInput}
               onConfirm={handleConfirm}
               onFocus={handleFocus}
               onBlur={handleBlur}
-              // adjustPosition={false}
+              adjustPosition={false}
               autoHeight
               maxlength={-1}
               disabled={disabled}
               showConfirmBar={false}
               id="scroll-input-wrap"
             />
-          </ScrollView>
+            // </View>
+          // </ScrollView>
         )}
       </>
     );
-  }, [
-    disabled,
-    handleBlur,
-    handleConfirm,
-    handleFocus,
-    handleInput,
-    handleTextarea,
-    scrollTop,
-    value,
-  ]);
+  }, [disabled, handleBlur, handleConfirm, handleFocus, handleInput, handleTextarea, value]);
 });
 
 export default TextInput;
