@@ -12,6 +12,7 @@ import IconFileDoc from "../../assets/images/icon-file-doc.png";
 import IconFileUnknown from "../../assets/images/icon-file-edit.png";
 import IconFilePdf from "../../assets/images/icon-file-pdf.png";
 import IconFilePpt from "../../assets/images/icon-file-ppt.png";
+import IconFileVideo from "../../assets/images/icon-file-video.png";
 import IconFileXls from "../../assets/images/icon-file-xls.png";
 import { downloadFileForOpen } from "../../util/downloadFileUtil";
 import { MessageProps } from "../Message/types";
@@ -83,6 +84,15 @@ export default function Bubble({
       case "pptx":
         return IconFilePpt;
       default:
+        {
+          if (
+            ["video", "flv", "avi", "mov", "mp4", "wmv"].includes(
+              (message?.extra as MessageFileExtra)?.fileType
+            )
+          ) {
+            return IconFileVideo;
+          }
+        }
         return IconFileUnknown;
     }
   }, [message.extra]);

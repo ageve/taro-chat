@@ -165,8 +165,8 @@ const newMessage: MessageOptionProps[] = [
     extra: {
       fileName: "高赖氨酸牛奶.pdf",
       fileUrl:
-        "https://hugofsa.yocdev.com/hugo/9318ce75-026a-4c9b-b586-b766c5ec67be.pdf",
-      fileType: "pdf",
+        "https://hugofsa.yocdev.com/hugo/9318ce75-026a-4c9b-b586-b766c5ec67be.video",
+      fileType: "video",
     },
     user: {
       avatar:
